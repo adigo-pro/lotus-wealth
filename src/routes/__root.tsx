@@ -82,13 +82,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Bloom Wealth 🪷 — budget tracker and wealth planner" },
+      { title: "Lotus Wealth 🪷 — budget tracker and wealth planner" },
       {
         name: "description",
         content:
           "A full-stack budgeting app for spending, savings goals, recurring bills, and long-term wealth planning.",
       },
-      { name: "author", content: "Bloom Wealth" },
+      { name: "author", content: "Lotus Wealth" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

@@ -1,6 +1,6 @@
-# Bloom Wealth 🪷
+# Lotus Wealth 🪷
 
-Bloom Wealth is a full-stack budget tracker and wealth planner built with TanStack Start, React, Tailwind CSS, Convex, and Vercel.
+Lotus Wealth is a full-stack budget tracker and wealth planner built with TanStack Start, React, Tailwind CSS, Convex, and Vercel.
 
 ## What It Does
 

@@ -1,10 +1,10 @@
-# Bloom Wealth Application Plan
+# Lotus Wealth Application Plan
 
-Bloom Wealth is now structured as a real full-stack budgeting app: React/TanStack on the frontend, Convex for auth and user-owned data, GitHub for source control, and Vercel for CI/CD.
+Lotus Wealth is now structured as a real full-stack budgeting app: React/TanStack on the frontend, Convex for auth and user-owned data, GitHub for source control, and Vercel for CI/CD.
 
 ## Implemented
 
-- Lotus-branded Bloom Wealth UI and favicon.
+- Lotus-branded Lotus Wealth UI and favicon.
 - Convex project with separate development and production deployments.
 - Convex Auth email/password configuration.
 - User-scoped data model for profiles, expenses, goals, recurring bills, and transactions.

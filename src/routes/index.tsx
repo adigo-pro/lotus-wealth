@@ -27,13 +27,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Bloom Wealth 🪷 — budget tracker and wealth planner" },
+      { title: "Lotus Wealth 🪷 — budget tracker and wealth planner" },
       {
         name: "description",
         content:
           "A playful full-stack budget tracker for spending, savings goals, recurring bills, and long-term wealth planning.",
       },
-      { property: "og:title", content: "Bloom Wealth 🪷" },
+      { property: "og:title", content: "Lotus Wealth 🪷" },
       {
         property: "og:description",
         content: "Budget softly, save clearly, and grow wealth with a real backend.",
@@ -147,7 +147,7 @@ function AuthPanel() {
   if (isLoading) {
     return (
       <div className="mx-auto mt-6 max-w-2xl rounded-2xl border border-border bg-card/75 px-4 py-3 text-sm font-semibold text-muted-foreground">
-        Connecting Bloom Wealth to Convex...
+        Connecting Lotus Wealth to Convex...
       </div>
     );
   }
@@ -241,15 +241,15 @@ function Index() {
     <main className="mx-auto w-full max-w-6xl px-4 pb-24 pt-8 sm:px-6 sm:pt-12 lg:px-8">
       <header className="text-center">
         <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-          <Sparkles className="size-3.5" /> Bloom Wealth 🪷
+          <Sparkles className="size-3.5" /> Lotus Wealth 🪷
         </span>
         <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
-          <span className="gradient-text">Bloom</span>
+          <span className="gradient-text">Lotus</span>
           <br />
           Wealth
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground sm:text-base">
-          Track spending, plan cashflow, protect goals, and watch long-term wealth bloom from
+          Track spending, plan cashflow, protect goals, and watch long-term wealth grow from
           everyday decisions. Cute charts, real backend, less chaos.
         </p>
         {isConvexConfigured ? (
@@ -770,7 +770,7 @@ function Index() {
 
       <footer className="mt-14 text-center text-xs text-muted-foreground">
         {isConvexConfigured
-          ? "Synced with Convex when signed in. Bloom Wealth grows with every clean decision."
+          ? "Synced with Convex when signed in. Lotus Wealth grows with every clean decision."
           : "Saved automatically on your device. Connect Convex to unlock accounts and backend sync."}
       </footer>
     </main>
