@@ -260,8 +260,8 @@ function Index() {
         </div>
       </nav>
 
-      <header className="hero-editorial grid min-h-[calc(100vh-5rem)] items-center gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_390px] lg:py-20">
-        <div>
+      <header className="hero-editorial flex min-h-[calc(100vh-5rem)] items-center py-12 lg:py-20">
+        <div className="max-w-4xl">
           <p className="eyebrow flex items-center gap-2">
             <Sparkles className="size-3.5" /> money, made softer
           </p>
@@ -282,41 +282,6 @@ function Index() {
             )}
           </div>
         </div>
-
-        <aside
-          className="phone-preview hidden justify-self-center lg:block"
-          aria-label="Lotus Wealth preview"
-        >
-          <div className="phone-shell">
-            <div className="phone-screen">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
-                  Lotus
-                </span>
-                <span className="text-lg">🪷</span>
-              </div>
-              <p className="mt-10 text-sm text-muted-foreground">left this month</p>
-              <p className="font-display text-5xl font-bold">{money(d.freeFlow)}</p>
-              <div className="mt-8 space-y-3">
-                {state.expenses.slice(0, 4).map((expense) => (
-                  <div key={expense.id} className="phone-row flex items-center justify-between">
-                    <span>{expense.name}</span>
-                    <strong>{money(expense.amount)}</strong>
-                  </div>
-                ))}
-              </div>
-              <div className="phone-growth mt-8">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                    projected
-                  </p>
-                  <p className="font-display text-2xl font-bold">{money(d.futureValue)}</p>
-                </div>
-                <TrendingUp className="size-5 text-primary" />
-              </div>
-            </div>
-          </div>
-        </aside>
       </header>
 
       <button
