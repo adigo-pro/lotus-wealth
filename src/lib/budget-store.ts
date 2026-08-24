@@ -144,7 +144,8 @@ function useConvexBudget() {
   }, [snapshot]);
 
   useEffect(() => {
-    if (!snapshot || snapshot.expenses.length > 0 || snapshot.goals.length > 0) return;
+    if (snapshot === undefined) return;
+    if (snapshot && (snapshot.expenses.length > 0 || snapshot.goals.length > 0)) return;
     void seed({
       expenses: defaultState.expenses.map(({ name, amount, category, essential }) => ({
         name,
