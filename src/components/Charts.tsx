@@ -1,7 +1,7 @@
 import {
-  Area,
-  AreaChart,
   Cell,
+  Line,
+  LineChart,
   Pie,
   PieChart,
   ResponsiveContainer,
@@ -43,6 +43,7 @@ export function SpendPie({ data }: { data: { name: string; value: number }[] }) 
             outerRadius="88%"
             paddingAngle={3}
             stroke="none"
+            isAnimationActive={false}
           >
             {data.map((_, i) => (
               <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
@@ -66,17 +67,7 @@ export function WealthChart({
   return (
     <div className="h-64 w-full sm:h-80">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data} margin={{ top: 10, right: 6, left: -18, bottom: 0 }}>
-          <defs>
-            <linearGradient id="growth" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--chart-1)" stopOpacity={0.85} />
-              <stop offset="100%" stopColor="var(--chart-2)" stopOpacity={0.05} />
-            </linearGradient>
-            <linearGradient id="contrib" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--grape)" stopOpacity={0.35} />
-              <stop offset="100%" stopColor="var(--grape)" stopOpacity={0.02} />
-            </linearGradient>
-          </defs>
+        <LineChart data={data} margin={{ top: 10, right: 6, left: -18, bottom: 0 }}>
           <XAxis
             dataKey="year"
             tickLine={false}
@@ -98,21 +89,23 @@ export function WealthChart({
               n === "invested" ? "Portfolio" : "You put in",
             ]}
           />
-          <Area
+          <Line
             type="monotone"
             dataKey="contributed"
             stroke="var(--grape)"
             strokeWidth={2}
-            fill="url(#contrib)"
+            dot={false}
+            isAnimationActive={false}
           />
-          <Area
+          <Line
             type="monotone"
             dataKey="invested"
             stroke="var(--chart-1)"
             strokeWidth={3}
-            fill="url(#growth)"
+            dot={false}
+            isAnimationActive={false}
           />
-        </AreaChart>
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );

@@ -219,9 +219,8 @@
   border-radius: 0;
 }
 
-.cashflow-balance {
-  border-top: 1px solid var(--hairline);
-  background: color-mix(in oklab, var(--primary) 5%, transparent);
+.guest-gate .account-form {
+  width: 100%;
 }
 
 .goal-line {

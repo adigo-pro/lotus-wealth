@@ -81,7 +81,7 @@ function HomePage() {
 
       <Link
         to="/cashflow"
-        className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary"
+        className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary"
       >
         View cash flow <ArrowRight className="size-4" />
       </Link>

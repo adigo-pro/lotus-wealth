@@ -120,6 +120,7 @@ export function BudgetPage() {
               <li key={expense.id} className="ledger-row flex items-center gap-3 py-3">
                 <button
                   aria-label={`Mark ${expense.name} as ${expense.essential ? "a want" : "a need"}`}
+                  aria-pressed={expense.essential}
                   onClick={() =>
                     setState((current) => ({
                       ...current,
@@ -128,8 +129,12 @@ export function BudgetPage() {
                       ),
                     }))
                   }
-                  className={`size-3.5 shrink-0 rounded-full ${expense.essential ? "bg-primary" : "bg-muted-foreground/30"}`}
-                />
+                  className="grid size-11 shrink-0 place-items-center rounded-full"
+                >
+                  <span
+                    className={`size-5 rounded-full ${expense.essential ? "bg-primary" : "bg-muted-foreground/30"}`}
+                  />
+                </button>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold">{expense.name}</p>
                   <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
@@ -160,7 +165,7 @@ export function BudgetPage() {
                       expenses: current.expenses.filter((item) => item.id !== expense.id),
                     }))
                   }
-                  className="text-muted-foreground hover:text-destructive"
+                  className="grid size-11 shrink-0 place-items-center text-muted-foreground hover:text-destructive"
                 >
                   <Trash2 className="size-4" />
                 </button>
@@ -196,7 +201,7 @@ export function BudgetPage() {
             </select>
             <button
               onClick={addExpense}
-              className="primary-button flex items-center justify-center gap-1 px-4 py-2 text-sm font-semibold"
+              className="primary-button flex min-h-11 items-center justify-center gap-1 px-4 py-2 text-sm font-semibold"
             >
               <Plus className="size-4" /> Add
             </button>
@@ -245,7 +250,7 @@ export function BudgetPage() {
           </details>
           <Link
             to="/habits"
-            className="inline-flex text-sm font-semibold text-muted-foreground hover:text-primary"
+            className="inline-flex min-h-11 items-center text-sm font-semibold text-muted-foreground hover:text-primary"
           >
             Review spending habits
           </Link>
@@ -268,8 +273,13 @@ export function CashflowPage() {
 
   return (
     <AppShell>
-      <PageHeader title="Cash flow" />
-      <section className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+      <PageHeader
+        title="Cash flow"
+        action={
+          <p className="font-display text-2xl font-semibold">{money(summary.freeFlow)} available</p>
+        }
+      />
+      <section className="max-w-3xl">
         <div className="ledger-sheet p-5 sm:p-7">
           <h2 className="font-display text-xl font-bold">Monthly flow</h2>
           <div className="mt-5">
@@ -289,12 +299,6 @@ export function CashflowPage() {
             ))}
           </div>
         </div>
-        <aside className="cashflow-balance p-6 sm:p-8">
-          <p className="text-sm text-muted-foreground">Available</p>
-          <p className="mt-3 font-display text-4xl font-semibold sm:text-5xl">
-            {money(summary.freeFlow)}
-          </p>
-        </aside>
       </section>
     </AppShell>
   );
@@ -323,7 +327,7 @@ export function GoalsPage() {
                 ],
               }))
             }
-            className="primary-button inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold"
+            className="primary-button inline-flex min-h-11 items-center gap-2 px-4 py-2.5 text-sm font-semibold"
           >
             <Plus className="size-4" /> New goal
           </button>
@@ -364,7 +368,7 @@ export function GoalsPage() {
                       ),
                     }))
                   }
-                  className="rounded-full bg-secondary px-3 py-2 text-xs font-bold"
+                  className="min-h-11 rounded-full bg-secondary px-3 py-2 text-xs font-bold"
                 >
                   Add $100
                 </button>
@@ -376,7 +380,7 @@ export function GoalsPage() {
                       goals: current.goals.filter((item) => item.id !== goal.id),
                     }))
                   }
-                  className="grid size-9 place-items-center text-muted-foreground hover:text-destructive"
+                  className="grid size-11 place-items-center text-muted-foreground hover:text-destructive"
                 >
                   <Trash2 className="size-4" />
                 </button>
