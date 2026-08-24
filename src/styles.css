@@ -164,6 +164,72 @@
   border-bottom: 1px solid var(--hairline);
 }
 
+.nav-link {
+  border-radius: 999px;
+}
+
+.nav-link:hover,
+.nav-link-active {
+  color: var(--foreground);
+  background: color-mix(in oklab, var(--primary) 8%, transparent);
+}
+
+.mobile-nav {
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: 1rem;
+  background: color-mix(in oklab, var(--background) 94%, transparent);
+  box-shadow: 0 12px 32px -20px color-mix(in oklab, var(--foreground) 45%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.mobile-nav-link {
+  min-height: 3.25rem;
+}
+
+.mobile-nav-active {
+  color: var(--primary);
+  background: color-mix(in oklab, var(--primary) 8%, transparent);
+}
+
+.page-heading {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.home-intro h1,
+.page-heading h1 {
+  color: oklch(0.18 0.035 342);
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.overview-metric + .overview-metric {
+  border-left: 1px solid var(--hairline);
+}
+
+.destination-row:hover h3 {
+  color: var(--primary);
+}
+
+.account-access {
+  border: 1px solid var(--softline);
+  border-radius: 1.25rem;
+  background: color-mix(in oklab, var(--card) 64%, transparent);
+}
+
+.account-form input {
+  border-radius: 0;
+}
+
+.cashflow-balance {
+  border-top: 3px solid var(--primary);
+  background: color-mix(in oklab, var(--primary) 5%, transparent);
+}
+
+.goal-line {
+  border-bottom: 1px solid var(--hairline);
+}
+
 .hero-editorial {
   border-bottom: 0;
 }
@@ -314,6 +380,11 @@
 }
 
 @media (max-width: 640px) {
+  .overview-metric + .overview-metric {
+    border-left: 0;
+    border-top: 1px solid var(--hairline);
+  }
+
   .metric-frond {
     border-left: 0;
     border-top: 1px solid var(--hairline);
