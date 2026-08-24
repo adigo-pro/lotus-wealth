@@ -1,21 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useAuthActions, useConvexAuth } from "@convex-dev/auth/react";
 import { useMemo, useState } from "react";
-import {
-  Heart,
-  PiggyBank,
-  Plus,
-  Sparkles,
-  Trash2,
-  TrendingUp,
-  Wallet,
-  Flame,
-  LogOut,
-  Lock,
-} from "lucide-react";
+import { PiggyBank, Plus, Trash2, TrendingUp, Wallet, Flame, LogOut, Lock } from "lucide-react";
 import { SpendPie, WealthChart } from "@/components/Charts";
 import {
-  AFFIRMATIONS,
   CATEGORIES,
   type Category,
   derive,
@@ -189,7 +177,7 @@ function AuthPanel() {
         className="rounded-xl bg-secondary px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
       />
       <input name="flow" type="hidden" value={step} />
-      <button className="dream-gradient inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-bold text-primary-foreground">
+      <button className="primary-button inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-bold">
         <Lock className="size-4" /> {step === "signIn" ? "Sign in" : "Sign up"}
       </button>
       <button
@@ -210,7 +198,6 @@ function Index() {
   const { state, setState, update, hydrated } = useBudget();
   const d = useMemo(() => derive(state), [state]);
   const [tab, setTab] = useState<Tab>("Budget");
-  const [affIndex, setAffIndex] = useState(0);
   const [draft, setDraft] = useState<{ name: string; amount: string; category: Category }>({
     name: "",
     amount: "",
@@ -260,17 +247,14 @@ function Index() {
         </div>
       </nav>
 
-      <header className="hero-editorial flex min-h-[calc(100vh-5rem)] items-center py-12 lg:py-20">
+      <header className="hero-editorial flex min-h-[68vh] items-center py-16 lg:py-24">
         <div className="max-w-4xl">
-          <p className="eyebrow flex items-center gap-2">
-            <Sparkles className="size-3.5" /> money, made softer
-          </p>
+          <p className="eyebrow">Lotus Wealth</p>
           <h1 className="mt-6 max-w-3xl font-display text-5xl font-bold leading-[0.96] sm:text-7xl lg:text-8xl">
-            Your budget should feel calm enough to open every day.
+            A calmer way to know where your money goes.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-            Lotus Wealth keeps spending, cashflow, goals, and long-term growth in one warm place,
-            without turning your money into a spreadsheet you avoid.
+            Track spending, cashflow, goals, and long-term growth in one clean workspace.
           </p>
           <div className="mt-8 max-w-2xl">
             {isConvexConfigured ? (
@@ -284,20 +268,7 @@ function Index() {
         </div>
       </header>
 
-      <button
-        onClick={() => setAffIndex((i) => (i + 1) % AFFIRMATIONS.length)}
-        className="affirmation-bloom float-slow mx-auto mt-8 flex w-full max-w-2xl items-center gap-3 px-5 py-4 text-left text-primary-foreground transition-transform active:scale-[0.99]"
-      >
-        <Heart className="size-5 shrink-0" />
-        <span className="font-display text-base font-semibold sm:text-lg">
-          {AFFIRMATIONS[affIndex]}
-        </span>
-        <span className="ml-auto hidden text-xs uppercase tracking-widest opacity-80 sm:block">
-          tap
-        </span>
-      </button>
-
-      <section className="stat-garden mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      <section className="stat-garden mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <Stat
           label="Monthly in"
           value={money(state.income)}
@@ -360,7 +331,7 @@ function Index() {
                       }))
                     }
                     className={`size-3.5 shrink-0 rounded-full transition-colors ${
-                      e.essential ? "bg-mint" : "bg-bubblegum"
+                      e.essential ? "bg-primary" : "bg-muted-foreground/30"
                     }`}
                   />
                   <div className="min-w-0 flex-1">
@@ -425,7 +396,7 @@ function Index() {
               </select>
               <button
                 onClick={addExpense}
-                className="dream-gradient flex items-center justify-center gap-1 rounded-xl px-4 py-2 text-sm font-semibold text-primary-foreground"
+                className="primary-button flex items-center justify-center gap-1 px-4 py-2 text-sm font-semibold"
               >
                 <Plus className="size-4" /> Add
               </button>
@@ -474,9 +445,7 @@ function Index() {
               />
               <p
                 className={`status-strip px-3 py-2 text-sm font-semibold ${
-                  d.freeFlow >= 0
-                    ? "bg-mint/30 text-foreground"
-                    : "bg-destructive/15 text-destructive"
+                  d.freeFlow >= 0 ? "text-foreground" : "bg-destructive/15 text-destructive"
                 }`}
               >
                 {d.freeFlow >= 0
@@ -542,7 +511,7 @@ function Index() {
             </p>
             <div className="mt-6 h-5 w-full overflow-hidden rounded-full bg-secondary">
               <div
-                className="dream-gradient h-full rounded-full transition-all duration-700"
+                className="primary-fill h-full rounded-full transition-all duration-700"
                 style={{ width: `${Math.min(100, d.wantsShare)}%` }}
               />
             </div>
@@ -576,7 +545,7 @@ function Index() {
             <div className="mt-5 flex gap-2">
               <button
                 onClick={() => update("noBuyStreak", state.noBuyStreak + 1)}
-                className="dream-gradient flex-1 rounded-2xl px-4 py-3 text-sm font-semibold text-primary-foreground"
+                className="primary-button flex-1 px-4 py-3 text-sm font-semibold"
               >
                 +1 day strong
               </button>
@@ -633,7 +602,7 @@ function Index() {
                 </p>
                 <div className="mt-3 h-3 overflow-hidden rounded-full bg-secondary">
                   <div
-                    className="dream-gradient h-full transition-all duration-700"
+                    className="primary-fill h-full transition-all duration-700"
                     style={{ width: `${pct}%` }}
                   />
                 </div>
