@@ -12,13 +12,17 @@ function joinedDate(account: AccountInfo) {
 export function AccountAccess({
   account,
   compact = false,
+  initialStep = "signIn",
+  useAuthRoutes = false,
 }: {
   account: AccountInfo;
   compact?: boolean;
+  initialStep?: "signIn" | "signUp";
+  useAuthRoutes?: boolean;
 }) {
   const { isAuthenticated, isLoading } = useConvexAuth();
   const { signIn, signOut } = useAuthActions();
-  const [step, setStep] = useState<"signIn" | "signUp">("signIn");
+  const [step, setStep] = useState<"signIn" | "signUp">(initialStep);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -79,7 +83,7 @@ export function AccountAccess({
         void signIn("password", new FormData(event.currentTarget))
           .catch(() => {
             if (attemptedStep === "signUp") {
-              setStep("signIn");
+              if (!useAuthRoutes) setStep("signIn");
               setError(
                 "Could not create a new account. This email may already be registered, so try signing in instead.",
               );
@@ -135,16 +139,25 @@ export function AccountAccess({
               ? "Sign in"
               : "Create account"}
         </button>
-        <button
-          type="button"
-          onClick={() => {
-            setError("");
-            setStep(step === "signIn" ? "signUp" : "signIn");
-          }}
-          className="mt-4 min-h-11 w-full text-center text-sm font-semibold text-muted-foreground hover:text-primary"
-        >
-          {step === "signIn" ? "New here? Create an account" : "Already have an account? Sign in"}
-        </button>
+        {useAuthRoutes ? (
+          <Link
+            to={step === "signIn" ? "/sign-up" : "/sign-in"}
+            className="mt-4 flex min-h-11 w-full items-center justify-center text-center text-sm font-semibold text-muted-foreground hover:text-primary"
+          >
+            {step === "signIn" ? "New here? Create an account" : "Already have an account? Sign in"}
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={() => {
+              setError("");
+              setStep(step === "signIn" ? "signUp" : "signIn");
+            }}
+            className="mt-4 min-h-11 w-full text-center text-sm font-semibold text-muted-foreground hover:text-primary"
+          >
+            {step === "signIn" ? "New here? Create an account" : "Already have an account? Sign in"}
+          </button>
+        )}
       </div>
     </form>
   );

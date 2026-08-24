@@ -68,18 +68,36 @@ function GuestGate({ loading = false }: { loading?: boolean }) {
           Opening your account...
         </p>
       ) : (
-        <AccountAccess account={null} />
+        <>
+          <div className="grid gap-3 lg:hidden">
+            <Link
+              to="/sign-up"
+              className="primary-button flex min-h-12 items-center justify-center px-5 py-3 text-sm font-semibold"
+            >
+              Create account
+            </Link>
+            <Link
+              to="/sign-in"
+              className="flex min-h-12 items-center justify-center rounded-full border border-border px-5 py-3 text-sm font-semibold"
+            >
+              Sign in
+            </Link>
+          </div>
+          <div className="hidden lg:block">
+            <AccountAccess account={null} />
+          </div>
+        </>
       )}
     </section>
   );
 }
 
-function GuestHeader() {
+export function GuestHeader() {
   return (
     <header className="site-nav flex min-h-20 items-center">
-      <span className="font-display text-xl font-bold">
+      <Link to="/" className="font-display text-xl font-bold">
         Lotus Wealth <span aria-hidden="true">🪷</span>
-      </span>
+      </Link>
     </header>
   );
 }

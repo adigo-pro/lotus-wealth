@@ -16,6 +16,8 @@ import { Route as CashflowRouteImport } from './routes/cashflow'
 import { Route as GoalsRouteImport } from './routes/goals'
 import { Route as HabitsRouteImport } from './routes/habits'
 import { Route as PlanRouteImport } from './routes/plan'
+import { Route as SignInRouteImport } from './routes/sign-in'
+import { Route as SignUpRouteImport } from './routes/sign-up'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +54,16 @@ const PlanRoute = PlanRouteImport.update({
   path: '/plan',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SignInRoute = SignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignUpRoute = SignUpRouteImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +73,8 @@ export interface FileRoutesByFullPath {
   '/goals': typeof GoalsRoute
   '/habits': typeof HabitsRoute
   '/plan': typeof PlanRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +84,8 @@ export interface FileRoutesByTo {
   '/goals': typeof GoalsRoute
   '/habits': typeof HabitsRoute
   '/plan': typeof PlanRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,14 +96,32 @@ export interface FileRoutesById {
   '/goals': typeof GoalsRoute
   '/habits': typeof HabitsRoute
   '/plan': typeof PlanRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/account' | '/budget' | '/cashflow' | '/goals' | '/habits' | '/plan'
+    | '/'
+    | '/account'
+    | '/budget'
+    | '/cashflow'
+    | '/goals'
+    | '/habits'
+    | '/plan'
+    | '/sign-in'
+    | '/sign-up'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/account' | '/budget' | '/cashflow' | '/goals' | '/habits' | '/plan'
+    | '/'
+    | '/account'
+    | '/budget'
+    | '/cashflow'
+    | '/goals'
+    | '/habits'
+    | '/plan'
+    | '/sign-in'
+    | '/sign-up'
   id:
     | '__root__'
     | '/'
@@ -97,6 +131,8 @@ export interface FileRouteTypes {
     | '/goals'
     | '/habits'
     | '/plan'
+    | '/sign-in'
+    | '/sign-up'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -107,6 +143,8 @@ export interface RootRouteChildren {
   GoalsRoute: typeof GoalsRoute
   HabitsRoute: typeof HabitsRoute
   PlanRoute: typeof PlanRoute
+  SignInRoute: typeof SignInRoute
+  SignUpRoute: typeof SignUpRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -160,6 +198,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sign-in': {
+      id: '/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sign-up': {
+      id: '/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof SignUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -171,6 +223,8 @@ const rootRouteChildren: RootRouteChildren = {
   GoalsRoute: GoalsRoute,
   HabitsRoute: HabitsRoute,
   PlanRoute: PlanRoute,
+  SignInRoute: SignInRoute,
+  SignUpRoute: SignUpRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
