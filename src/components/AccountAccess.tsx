@@ -92,11 +92,11 @@ export function AccountAccess({
       className="account-form max-w-md"
     >
       <div>
-        <h2 className="font-display text-3xl font-semibold">
-          {step === "signIn" ? "Welcome back" : "Create your account"}
+        <h2 className="font-display text-2xl font-semibold">
+          {step === "signIn" ? "Sign in" : "Create account"}
         </h2>
       </div>
-      <div className="mt-7 grid gap-5">
+      <div className="mt-5 grid gap-5 sm:mt-7">
         <label>
           <span className="text-sm font-semibold">Email</span>
           <input
