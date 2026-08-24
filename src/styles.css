@@ -56,44 +56,54 @@
 }
 
 :root {
-  --radius: 1rem;
-  --background: oklch(0.985 0.012 340);
-  --foreground: oklch(0.28 0.09 320);
-  --card: oklch(0.998 0.005 340);
-  --card-foreground: oklch(0.28 0.09 320);
-  --popover: oklch(0.998 0.005 340);
-  --popover-foreground: oklch(0.28 0.09 320);
-  --primary: oklch(0.63 0.22 340);
-  --primary-foreground: oklch(0.99 0.01 340);
-  --secondary: oklch(0.94 0.045 320);
-  --secondary-foreground: oklch(0.34 0.12 320);
-  --muted: oklch(0.955 0.025 330);
-  --muted-foreground: oklch(0.52 0.06 320);
-  --accent: oklch(0.7 0.19 300);
-  --accent-foreground: oklch(0.99 0.01 320);
-  --destructive: oklch(0.6 0.21 20);
-  --destructive-foreground: oklch(0.99 0.01 340);
-  --border: oklch(0.9 0.04 330);
-  --input: oklch(0.9 0.04 330);
-  --ring: oklch(0.7 0.18 330);
+  --radius: 1.35rem;
+  --background: oklch(0.975 0.024 108);
+  --foreground: oklch(0.27 0.055 122);
+  --card: oklch(0.992 0.018 100);
+  --card-foreground: oklch(0.27 0.055 122);
+  --popover: oklch(0.992 0.018 100);
+  --popover-foreground: oklch(0.27 0.055 122);
+  --primary: oklch(0.48 0.12 150);
+  --primary-foreground: oklch(0.985 0.018 108);
+  --secondary: oklch(0.925 0.052 118);
+  --secondary-foreground: oklch(0.33 0.085 142);
+  --muted: oklch(0.94 0.035 105);
+  --muted-foreground: oklch(0.48 0.055 120);
+  --accent: oklch(0.69 0.14 32);
+  --accent-foreground: oklch(0.99 0.015 86);
+  --destructive: oklch(0.58 0.18 24);
+  --destructive-foreground: oklch(0.99 0.015 86);
+  --border: oklch(0.86 0.047 108);
+  --input: oklch(0.88 0.04 108);
+  --ring: oklch(0.62 0.11 150);
 
-  --bubblegum: oklch(0.74 0.18 350);
-  --grape: oklch(0.55 0.2 300);
-  --lilac: oklch(0.82 0.1 305);
-  --blush: oklch(0.93 0.05 355);
-  --mint: oklch(0.83 0.12 175);
-  --gold: oklch(0.85 0.14 90);
+  --bubblegum: oklch(0.76 0.14 18);
+  --grape: oklch(0.5 0.09 295);
+  --lilac: oklch(0.78 0.075 318);
+  --blush: oklch(0.91 0.055 22);
+  --mint: oklch(0.78 0.13 156);
+  --gold: oklch(0.82 0.13 82);
 
-  --chart-1: oklch(0.68 0.21 345);
-  --chart-2: oklch(0.62 0.2 300);
-  --chart-3: oklch(0.8 0.13 60);
-  --chart-4: oklch(0.78 0.14 190);
-  --chart-5: oklch(0.72 0.16 25);
+  --chart-1: oklch(0.53 0.13 152);
+  --chart-2: oklch(0.76 0.14 18);
+  --chart-3: oklch(0.78 0.13 82);
+  --chart-4: oklch(0.61 0.11 205);
+  --chart-5: oklch(0.61 0.09 295);
 
-  --gradient-dream: linear-gradient(135deg, oklch(0.72 0.2 345), oklch(0.62 0.2 300));
-  --gradient-sunrise: linear-gradient(120deg, oklch(0.9 0.09 355), oklch(0.87 0.1 310), oklch(0.9 0.09 200));
-  --shadow-soft: 0 18px 40px -22px oklch(0.55 0.2 320 / 0.55);
-  --shadow-pop: 0 26px 60px -26px oklch(0.55 0.22 330 / 0.65);
+  --gradient-dream: linear-gradient(
+    135deg,
+    oklch(0.53 0.13 152),
+    oklch(0.72 0.14 36) 62%,
+    oklch(0.78 0.12 18)
+  );
+  --gradient-sunrise: linear-gradient(
+    120deg,
+    oklch(0.96 0.05 92),
+    oklch(0.93 0.055 42),
+    oklch(0.9 0.065 150)
+  );
+  --shadow-soft: 0 24px 70px -38px oklch(0.34 0.09 140 / 0.48);
+  --shadow-pop: 0 28px 80px -34px oklch(0.43 0.13 52 / 0.5);
 
   --sidebar: oklch(0.985 0.012 340);
   --sidebar-foreground: oklch(0.28 0.09 320);
@@ -115,9 +125,17 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     background-image:
-      radial-gradient(60rem 40rem at 10% -10%, oklch(0.9 0.09 340 / 0.55), transparent 60%),
-      radial-gradient(50rem 40rem at 100% 0%, oklch(0.88 0.1 300 / 0.5), transparent 60%),
-      radial-gradient(45rem 35rem at 50% 110%, oklch(0.9 0.08 200 / 0.35), transparent 60%);
+      linear-gradient(120deg, oklch(0.98 0.03 100 / 0.88), oklch(0.94 0.045 150 / 0.68)),
+      repeating-radial-gradient(
+        ellipse at 18% 0%,
+        oklch(0.74 0.1 150 / 0.16) 0 1px,
+        transparent 1px 22px
+      ),
+      repeating-radial-gradient(
+        ellipse at 95% 86%,
+        oklch(0.74 0.12 32 / 0.14) 0 1px,
+        transparent 1px 28px
+      );
     background-attachment: fixed;
   }
 
@@ -130,14 +148,16 @@
 }
 
 @utility glass-card {
-  background: color-mix(in oklab, var(--card) 78%, transparent);
-  backdrop-filter: blur(14px);
-  border: 1px solid color-mix(in oklab, var(--primary) 16%, transparent);
+  background:
+    linear-gradient(145deg, color-mix(in oklab, var(--card) 91%, transparent), oklch(0.94 0.04 100 / 0.74)),
+    color-mix(in oklab, var(--card) 86%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in oklab, var(--primary) 18%, transparent);
   box-shadow: var(--shadow-soft);
 }
 
 @utility gradient-text {
-  background-image: var(--gradient-dream);
+  background-image: linear-gradient(130deg, var(--primary), oklch(0.58 0.12 52));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -158,5 +178,153 @@
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+.organic-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.organic-shell::before,
+.organic-shell::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.72;
+}
+
+.organic-shell::before {
+  width: min(42vw, 34rem);
+  aspect-ratio: 1.7;
+  top: 7rem;
+  left: -10rem;
+  border-radius: 58% 42% 54% 46% / 44% 62% 38% 56%;
+  background:
+    linear-gradient(145deg, oklch(0.86 0.11 150 / 0.35), transparent 64%),
+    repeating-radial-gradient(ellipse at center, oklch(0.52 0.09 150 / 0.16) 0 1px, transparent 1px 18px);
+  transform: rotate(-12deg);
+}
+
+.organic-shell::after {
+  width: min(46vw, 38rem);
+  aspect-ratio: 1.45;
+  right: -12rem;
+  bottom: 5rem;
+  border-radius: 48% 52% 44% 56% / 58% 38% 62% 42%;
+  background:
+    linear-gradient(135deg, oklch(0.91 0.08 28 / 0.34), transparent 62%),
+    repeating-radial-gradient(ellipse at center, oklch(0.6 0.09 38 / 0.12) 0 1px, transparent 1px 20px);
+  transform: rotate(16deg);
+}
+
+.organic-shell .lotus-mark {
+  border-radius: 999px 999px 999px 42px;
+  box-shadow: 0 16px 42px -28px oklch(0.35 0.08 130 / 0.7);
+}
+
+.organic-shell h1 {
+  text-wrap: balance;
+}
+
+.organic-shell .glass-card {
+  border-radius: 2rem 3.3rem 2.2rem 3.7rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.organic-shell .glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, oklch(1 0 0 / 0.42), transparent 34%),
+    repeating-linear-gradient(
+      112deg,
+      transparent 0 16px,
+      oklch(0.55 0.08 145 / 0.035) 16px 17px
+    );
+  mix-blend-mode: multiply;
+}
+
+.organic-shell .glass-card > * {
+  position: relative;
+}
+
+.organic-shell .stat-garden .glass-card:nth-child(2n) {
+  border-radius: 3.4rem 2rem 3.8rem 2.1rem;
+  transform: translateY(0.35rem);
+}
+
+.organic-shell .stat-garden .glass-card:nth-child(3) {
+  border-radius: 2.2rem 4rem 2.3rem 3rem;
+}
+
+.organic-shell .affirmation-bloom {
+  border-radius: 3.8rem 2.2rem 3.6rem 2rem;
+  background-image:
+    linear-gradient(120deg, oklch(0.5 0.12 150), oklch(0.68 0.13 36) 70%),
+    radial-gradient(ellipse at 16% 18%, oklch(0.95 0.04 90 / 0.22), transparent 42%);
+}
+
+.organic-shell .tab-stream {
+  border-radius: 999px 999px 999px 2.2rem;
+  background:
+    linear-gradient(90deg, oklch(0.99 0.02 96 / 0.76), oklch(0.91 0.05 146 / 0.62)),
+    color-mix(in oklab, var(--card) 70%, transparent);
+}
+
+.organic-shell input,
+.organic-shell select {
+  border-radius: 1.4rem 1.1rem 1.5rem 1rem;
+}
+
+.organic-shell li {
+  border-radius: 1.5rem 2rem 1.4rem 2.2rem;
+}
+
+.organic-shell button {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease;
+}
+
+.organic-shell button:hover {
+  transform: translateY(-1px);
+}
+
+.organic-shell button:active {
+  transform: translateY(0);
+}
+
+.organic-shell .dream-gradient {
+  background-image: var(--gradient-dream);
+}
+
+@media (max-width: 640px) {
+  .organic-shell::before,
+  .organic-shell::after {
+    opacity: 0.42;
+  }
+
+  .organic-shell .glass-card,
+  .organic-shell .stat-garden .glass-card:nth-child(2n),
+  .organic-shell .stat-garden .glass-card:nth-child(3) {
+    border-radius: 1.8rem 2.4rem 1.9rem 2.5rem;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-slow {
+    animation: none;
+  }
+
+  .organic-shell button {
+    transition: none;
   }
 }

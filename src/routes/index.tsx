@@ -238,9 +238,9 @@ function Index() {
   };
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 pb-24 pt-8 sm:px-6 sm:pt-12 lg:px-8">
-      <header className="text-center">
-        <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+    <main className="organic-shell mx-auto w-full max-w-6xl px-4 pb-24 pt-8 sm:px-6 sm:pt-12 lg:px-8">
+      <header className="relative text-center">
+        <span className="lotus-mark inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
           <Sparkles className="size-3.5" /> Lotus Wealth 🪷
         </span>
         <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
@@ -263,7 +263,7 @@ function Index() {
 
       <button
         onClick={() => setAffIndex((i) => (i + 1) % AFFIRMATIONS.length)}
-        className="dream-gradient float-slow mx-auto mt-8 flex w-full max-w-2xl items-center gap-3 rounded-3xl px-5 py-4 text-left text-primary-foreground shadow-[var(--shadow-pop)] transition-transform active:scale-[0.99]"
+        className="affirmation-bloom dream-gradient float-slow mx-auto mt-8 flex w-full max-w-2xl items-center gap-3 rounded-3xl px-5 py-4 text-left text-primary-foreground shadow-[var(--shadow-pop)] transition-transform active:scale-[0.99]"
       >
         <Heart className="size-5 shrink-0" />
         <span className="font-display text-base font-semibold sm:text-lg">
@@ -274,7 +274,7 @@ function Index() {
         </span>
       </button>
 
-      <section className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      <section className="stat-garden mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <Stat
           label="Monthly in"
           value={money(state.income)}
@@ -301,7 +301,7 @@ function Index() {
         />
       </section>
 
-      <nav className="mt-8 flex snap-x gap-2 overflow-x-auto rounded-full border border-border bg-card/70 p-1.5 backdrop-blur">
+      <nav className="tab-stream mt-8 flex snap-x gap-2 overflow-x-auto rounded-full border border-border bg-card/70 p-1.5 backdrop-blur">
         {TABS.map((t) => (
           <button
             key={t}
