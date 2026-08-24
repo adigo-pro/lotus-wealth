@@ -20,6 +20,7 @@ export function AccountAccess({
   const { signIn, signOut } = useAuthActions();
   const [step, setStep] = useState<"signIn" | "signUp">("signIn");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (isLoading)
     return (
@@ -73,9 +74,20 @@ export function AccountAccess({
       onSubmit={(event) => {
         event.preventDefault();
         setError("");
-        void signIn("password", new FormData(event.currentTarget)).catch((reason) =>
-          setError(reason instanceof Error ? reason.message : "Could not continue."),
-        );
+        setIsSubmitting(true);
+        const attemptedStep = step;
+        void signIn("password", new FormData(event.currentTarget))
+          .catch(() => {
+            if (attemptedStep === "signUp") {
+              setStep("signIn");
+              setError(
+                "Could not create a new account. This email may already be registered, so try signing in instead.",
+              );
+              return;
+            }
+            setError("Email or password did not match. Try again.");
+          })
+          .finally(() => setIsSubmitting(false));
       }}
       className="account-form max-w-xl"
     >
@@ -109,8 +121,18 @@ export function AccountAccess({
       </div>
       {error ? <p className="mt-4 text-sm font-semibold text-destructive">{error}</p> : null}
       <div className="mt-7 flex flex-wrap items-center gap-4">
-        <button className="primary-button inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold">
-          <Lock className="size-4" /> {step === "signIn" ? "Sign in" : "Create account"}
+        <button
+          disabled={isSubmitting}
+          className="primary-button inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold disabled:cursor-wait disabled:opacity-60"
+        >
+          <Lock className="size-4" />
+          {isSubmitting
+            ? step === "signIn"
+              ? "Signing in..."
+              : "Creating account..."
+            : step === "signIn"
+              ? "Sign in"
+              : "Create account"}
         </button>
         <button
           type="button"
