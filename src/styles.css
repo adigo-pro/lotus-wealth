@@ -216,15 +216,12 @@
 }
 
 .account-form input {
-  border-radius: 0;
+  border-radius: 0.65rem;
 }
 
 .guest-gate .account-form {
   width: 100%;
-  max-width: 30rem;
-  padding-block: 2rem;
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
+  max-width: 28rem;
   justify-self: end;
 }
 
@@ -384,7 +381,6 @@
 @media (max-width: 640px) {
   .guest-gate .account-form {
     max-width: none;
-    padding-block: 1.5rem;
     justify-self: stretch;
   }
 

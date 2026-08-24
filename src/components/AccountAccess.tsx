@@ -89,41 +89,42 @@ export function AccountAccess({
           })
           .finally(() => setIsSubmitting(false));
       }}
-      className="account-form max-w-xl"
+      className="account-form max-w-md"
     >
-      <div className="grid gap-5">
+      <div>
+        <h2 className="font-display text-3xl font-semibold">
+          {step === "signIn" ? "Welcome back" : "Create your account"}
+        </h2>
+      </div>
+      <div className="mt-7 grid gap-5">
         <label>
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-            Email
-          </span>
+          <span className="text-sm font-semibold">Email</span>
           <input
             name="email"
             type="email"
             required
             autoComplete="email"
-            className="mt-2 w-full border-b border-border bg-transparent py-3 outline-none focus:border-primary"
+            className="mt-2 min-h-12 w-full border border-border bg-card px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-ring/20"
           />
         </label>
         <label>
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-            Password
-          </span>
+          <span className="text-sm font-semibold">Password</span>
           <input
             name="password"
             type="password"
             required
             minLength={8}
             autoComplete={step === "signIn" ? "current-password" : "new-password"}
-            className="mt-2 w-full border-b border-border bg-transparent py-3 outline-none focus:border-primary"
+            className="mt-2 min-h-12 w-full border border-border bg-card px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-ring/20"
           />
         </label>
         <input name="flow" type="hidden" value={step} />
       </div>
       {error ? <p className="mt-4 text-sm font-semibold text-destructive">{error}</p> : null}
-      <div className="mt-7 flex flex-wrap items-center gap-4">
+      <div className="mt-6">
         <button
           disabled={isSubmitting}
-          className="primary-button inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold disabled:cursor-wait disabled:opacity-60"
+          className="primary-button inline-flex min-h-12 w-full items-center justify-center gap-2 px-5 py-3 text-sm font-semibold disabled:cursor-wait disabled:opacity-60"
         >
           <Lock className="size-4" />
           {isSubmitting
@@ -140,7 +141,7 @@ export function AccountAccess({
             setError("");
             setStep(step === "signIn" ? "signUp" : "signIn");
           }}
-          className="text-sm font-semibold text-muted-foreground hover:text-primary"
+          className="mt-4 min-h-11 w-full text-center text-sm font-semibold text-muted-foreground hover:text-primary"
         >
           {step === "signIn" ? "New here? Create an account" : "Already have an account? Sign in"}
         </button>
