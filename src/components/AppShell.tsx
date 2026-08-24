@@ -57,11 +57,14 @@ function AuthenticatedShell({ children }: { children: ReactNode }) {
 
 function GuestGate({ loading = false }: { loading?: boolean }) {
   return (
-    <section className="guest-gate grid gap-8 py-12 sm:gap-10 sm:py-16 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[minmax(0,1.25fr)_minmax(22rem,0.75fr)] lg:items-center lg:gap-16 lg:py-12 xl:gap-24">
-      <div>
-        <h1 className="max-w-3xl font-display text-4xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
+    <section className="guest-gate flex min-h-[calc(100svh-5rem)] flex-col justify-center gap-8 py-10 sm:gap-10 sm:py-12 lg:grid lg:grid-cols-[minmax(0,1.25fr)_minmax(22rem,0.75fr)] lg:items-center lg:gap-16 xl:gap-24">
+      <div className="text-center lg:text-left">
+        <h1 className="mx-auto max-w-3xl font-display text-4xl font-semibold leading-[1.04] sm:text-6xl lg:mx-0 lg:text-7xl">
           Your money starts with you.
         </h1>
+        <p className="mx-auto mt-5 max-w-lg text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7 lg:mx-0">
+          Learn your habits, grow your savings, and build wealth with a plan that feels clear.
+        </p>
       </div>
       {loading ? (
         <p className="border-t border-border py-5 text-sm text-muted-foreground">
@@ -69,7 +72,7 @@ function GuestGate({ loading = false }: { loading?: boolean }) {
         </p>
       ) : (
         <>
-          <div className="grid gap-3 lg:hidden">
+          <div className="mx-auto grid w-full max-w-sm gap-3 lg:hidden">
             <Link
               to="/sign-up"
               className="primary-button flex min-h-12 items-center justify-center px-5 py-3 text-sm font-semibold"
