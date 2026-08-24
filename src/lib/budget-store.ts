@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, type SetStateAction } from "react";
+import { useConvexAuth } from "@convex-dev/auth/react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 
@@ -109,11 +110,12 @@ function useLocalBudget() {
 }
 
 function useConvexBudget() {
-  const snapshot = useQuery(api.budget.snapshot);
+  const { isAuthenticated } = useConvexAuth();
+  const snapshot = useQuery(api.budget.snapshot, isAuthenticated ? {} : "skip");
   const replaceState = useMutation(api.budget.replaceState);
   const seed = useMutation(api.budget.seed);
   const [state, setLocalState] = useState<BudgetState>(defaultState);
-  const hydrated = snapshot !== undefined;
+  const hydrated = !isAuthenticated || snapshot !== undefined;
 
   useEffect(() => {
     if (!snapshot) return;
@@ -144,6 +146,7 @@ function useConvexBudget() {
   }, [snapshot]);
 
   useEffect(() => {
+    if (!isAuthenticated) return;
     if (snapshot === undefined) return;
     if (snapshot && (snapshot.expenses.length > 0 || snapshot.goals.length > 0)) return;
     void seed({
@@ -160,17 +163,17 @@ function useConvexBudget() {
         emoji,
       })),
     }).catch(() => undefined);
-  }, [seed, snapshot]);
+  }, [isAuthenticated, seed, snapshot]);
 
   const setState = useCallback(
     (next: SetStateAction<BudgetState>) => {
       setLocalState((current) => {
         const resolved = typeof next === "function" ? next(current) : next;
-        void replaceState({ state: resolved }).catch(() => undefined);
+        if (isAuthenticated) void replaceState({ state: resolved }).catch(() => undefined);
         return resolved;
       });
     },
-    [replaceState],
+    [isAuthenticated, replaceState],
   );
 
   const update = useCallback(
