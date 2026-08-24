@@ -57,10 +57,10 @@ function AuthenticatedShell({ children }: { children: ReactNode }) {
 
 function GuestGate({ loading = false }: { loading?: boolean }) {
   return (
-    <section className="guest-gate grid gap-10 py-12 sm:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+    <section className="guest-gate grid gap-12 py-12 sm:py-16 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[minmax(0,1.25fr)_minmax(22rem,0.75fr)] lg:items-center lg:gap-16 lg:py-12 xl:gap-24">
       <div>
         <p className="text-sm text-muted-foreground">Private by default</p>
-        <h1 className="mt-3 max-w-md font-display text-4xl font-semibold leading-tight sm:text-5xl">
+        <h1 className="mt-4 max-w-3xl font-display text-4xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
           Your money starts with you.
         </h1>
       </div>
@@ -77,8 +77,8 @@ function GuestGate({ loading = false }: { loading?: boolean }) {
 
 function GuestHeader() {
   return (
-    <header className="site-nav flex min-h-16 items-center">
-      <span className="font-display text-lg font-bold">
+    <header className="site-nav flex min-h-20 items-center">
+      <span className="font-display text-xl font-bold">
         Lotus Wealth <span aria-hidden="true">🪷</span>
       </span>
     </header>

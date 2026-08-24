@@ -221,6 +221,11 @@
 
 .guest-gate .account-form {
   width: 100%;
+  max-width: 30rem;
+  padding-block: 2rem;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  justify-self: end;
 }
 
 .goal-line {
@@ -377,6 +382,12 @@
 }
 
 @media (max-width: 640px) {
+  .guest-gate .account-form {
+    max-width: none;
+    padding-block: 1.5rem;
+    justify-self: stretch;
+  }
+
   .overview-metric p:last-child {
     font-size: 1.15rem;
   }
