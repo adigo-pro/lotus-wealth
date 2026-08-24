@@ -31,12 +31,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "A playful full-stack budget tracker for spending, savings goals, recurring bills, and long-term wealth planning.",
+          "A playful budget tracker for spending, savings goals, recurring bills, and long-term wealth planning.",
       },
       { property: "og:title", content: "Lotus Wealth 🪷" },
       {
         property: "og:description",
-        content: "Budget softly, save clearly, and grow wealth with a real backend.",
+        content: "Budget softly, save clearly, and grow wealth with calm daily money habits.",
       },
     ],
   }),
@@ -135,7 +135,7 @@ function Slider({
   );
 }
 
-const TABS = ["Budget", "Cashflow", "No-buy era", "Goals", "Wealth", "Build plan"] as const;
+const TABS = ["Budget", "Cashflow", "No-buy era", "Goals", "Wealth", "Roadmap"] as const;
 type Tab = (typeof TABS)[number];
 
 function AuthPanel() {
@@ -147,7 +147,7 @@ function AuthPanel() {
   if (isLoading) {
     return (
       <div className="mx-auto mt-6 max-w-2xl rounded-2xl border border-border bg-card/75 px-4 py-3 text-sm font-semibold text-muted-foreground">
-        Connecting Lotus Wealth to Convex...
+        Opening your money workspace...
       </div>
     );
   }
@@ -155,7 +155,7 @@ function AuthPanel() {
   if (isAuthenticated) {
     return (
       <div className="mx-auto mt-6 flex max-w-2xl flex-wrap items-center justify-between gap-3 rounded-2xl border border-mint/40 bg-card/80 px-4 py-3">
-        <p className="text-sm font-semibold">Signed in. Your budget is synced with Convex.</p>
+        <p className="text-sm font-semibold">Signed in. Your budget is saved.</p>
         <button
           onClick={() => void signOut()}
           className="inline-flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-xs font-bold text-muted-foreground hover:text-primary"
@@ -250,14 +250,13 @@ function Index() {
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground sm:text-base">
           Track spending, plan cashflow, protect goals, and watch long-term wealth grow from
-          everyday decisions. Cute charts, real backend, less chaos.
+          everyday decisions. Cute charts, calm money, less chaos.
         </p>
         {isConvexConfigured ? (
           <AuthPanel />
         ) : (
           <div className="mx-auto mt-6 max-w-2xl rounded-2xl border border-gold/40 bg-card/75 px-4 py-3 text-sm font-semibold text-muted-foreground">
-            Local preview mode. Add <span className="font-bold text-primary">VITE_CONVEX_URL</span>{" "}
-            to sync with Convex.
+            Local preview mode. Sign-in saving is available on the live app.
           </div>
         )}
       </header>
@@ -499,13 +498,13 @@ function Index() {
             </div>
           </div>
           <div className="glass-card rounded-3xl p-5 sm:p-7">
-            <h2 className="font-display text-xl font-bold">Backend foundation</h2>
+            <h2 className="font-display text-xl font-bold">Money workspace</h2>
             <div className="mt-4 grid gap-3">
               {[
-                ["Auth", "Email/password accounts via Convex Auth"],
-                ["Database", "Profiles, expenses, goals, recurring bills, and transactions"],
-                ["Sync", "Budget edits persist to the signed-in user's Convex records"],
-                ["CI/CD", "GitHub-connected Vercel deploys on future pushes"],
+                ["Account", "Sign in to keep your plan available across sessions."],
+                ["Expenses", "Track needs, wants, categories, and monthly totals."],
+                ["Goals", "Follow progress toward emergency funds, trips, and investing targets."],
+                ["Cashflow", "See what is left after bills, savings, and investing."],
               ].map(([label, value]) => (
                 <div key={label} className="rounded-2xl border border-border bg-card px-4 py-3">
                   <p className="text-[11px] font-bold uppercase tracking-wider text-primary">
@@ -732,12 +731,12 @@ function Index() {
         </section>
       )}
 
-      {tab === "Build plan" && (
+      {tab === "Roadmap" && (
         <section className="mt-6 grid gap-4 lg:grid-cols-3">
           {[
             [
-              "1. Accounts",
-              "Finish onboarding, profile settings, password reset, and optional OAuth.",
+              "1. Account Setup",
+              "Profile settings, password recovery, and a smoother first-budget walkthrough.",
             ],
             [
               "2. Budgeting",
@@ -753,11 +752,11 @@ function Index() {
             ],
             [
               "5. Imports",
-              "Add CSV upload first, then Plaid-style bank sync when credentials are ready.",
+              "Add transaction uploads and guided cleanup for messy spending history.",
             ],
             [
-              "6. Production",
-              "Add tests, analytics, error reporting, and Vercel environment promotion rules.",
+              "6. Polish",
+              "Add reminders, empty states, mobile refinements, and calmer monthly review flows.",
             ],
           ].map(([title, body]) => (
             <div key={title} className="glass-card rounded-3xl p-5">
@@ -770,8 +769,8 @@ function Index() {
 
       <footer className="mt-14 text-center text-xs text-muted-foreground">
         {isConvexConfigured
-          ? "Synced with Convex when signed in. Lotus Wealth grows with every clean decision."
-          : "Saved automatically on your device. Connect Convex to unlock accounts and backend sync."}
+          ? "Your plan is saved when signed in. Lotus Wealth grows with every clean decision."
+          : "Saved automatically on your device. Sign-in saving is available on the live app."}
       </footer>
     </main>
   );

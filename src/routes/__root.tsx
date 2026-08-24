@@ -86,7 +86,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "A full-stack budgeting app for spending, savings goals, recurring bills, and long-term wealth planning.",
+          "A budgeting app for spending, savings goals, recurring bills, and long-term wealth planning.",
       },
       { name: "author", content: "Lotus Wealth" },
       { property: "og:type", content: "website" },
