@@ -92,7 +92,7 @@ export function AccountAccess({
       className="account-form max-w-md"
     >
       <div>
-        <h2 className="font-display text-2xl font-semibold">
+        <h2 className="text-center font-display text-2xl font-semibold">
           {step === "signIn" ? "Sign in" : "Create account"}
         </h2>
       </div>
