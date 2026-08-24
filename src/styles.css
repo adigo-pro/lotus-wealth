@@ -56,32 +56,32 @@
 }
 
 :root {
-  --radius: 1.35rem;
-  --background: oklch(0.975 0.024 108);
-  --foreground: oklch(0.27 0.055 122);
-  --card: oklch(0.992 0.018 100);
-  --card-foreground: oklch(0.27 0.055 122);
-  --popover: oklch(0.992 0.018 100);
-  --popover-foreground: oklch(0.27 0.055 122);
-  --primary: oklch(0.48 0.12 150);
-  --primary-foreground: oklch(0.985 0.018 108);
-  --secondary: oklch(0.925 0.052 118);
-  --secondary-foreground: oklch(0.33 0.085 142);
-  --muted: oklch(0.94 0.035 105);
-  --muted-foreground: oklch(0.48 0.055 120);
-  --accent: oklch(0.69 0.14 32);
-  --accent-foreground: oklch(0.99 0.015 86);
+  --radius: 1.2rem;
+  --background: oklch(0.975 0.022 348);
+  --foreground: oklch(0.27 0.065 342);
+  --card: oklch(0.992 0.018 24);
+  --card-foreground: oklch(0.27 0.065 342);
+  --popover: oklch(0.992 0.018 24);
+  --popover-foreground: oklch(0.27 0.065 342);
+  --primary: oklch(0.58 0.17 350);
+  --primary-foreground: oklch(0.99 0.014 24);
+  --secondary: oklch(0.93 0.052 18);
+  --secondary-foreground: oklch(0.35 0.09 350);
+  --muted: oklch(0.94 0.035 28);
+  --muted-foreground: oklch(0.48 0.055 344);
+  --accent: oklch(0.66 0.12 154);
+  --accent-foreground: oklch(0.99 0.015 90);
   --destructive: oklch(0.58 0.18 24);
   --destructive-foreground: oklch(0.99 0.015 86);
   --border: oklch(0.86 0.047 108);
   --input: oklch(0.88 0.04 108);
   --ring: oklch(0.62 0.11 150);
 
-  --bubblegum: oklch(0.76 0.14 18);
-  --grape: oklch(0.5 0.09 295);
-  --lilac: oklch(0.78 0.075 318);
-  --blush: oklch(0.91 0.055 22);
-  --mint: oklch(0.78 0.13 156);
+  --bubblegum: oklch(0.74 0.18 351);
+  --grape: oklch(0.5 0.1 304);
+  --lilac: oklch(0.8 0.08 318);
+  --blush: oklch(0.91 0.065 14);
+  --mint: oklch(0.72 0.12 156);
   --gold: oklch(0.82 0.13 82);
 
   --chart-1: oklch(0.53 0.13 152);
@@ -92,18 +92,18 @@
 
   --gradient-dream: linear-gradient(
     135deg,
-    oklch(0.53 0.13 152),
-    oklch(0.72 0.14 36) 62%,
-    oklch(0.78 0.12 18)
+    oklch(0.58 0.17 350),
+    oklch(0.75 0.13 20) 62%,
+    oklch(0.66 0.12 154)
   );
   --gradient-sunrise: linear-gradient(
     120deg,
-    oklch(0.96 0.05 92),
-    oklch(0.93 0.055 42),
-    oklch(0.9 0.065 150)
+    oklch(0.98 0.035 18),
+    oklch(0.94 0.055 348),
+    oklch(0.93 0.055 86)
   );
-  --shadow-soft: 0 24px 70px -38px oklch(0.34 0.09 140 / 0.48);
-  --shadow-pop: 0 28px 80px -34px oklch(0.43 0.13 52 / 0.5);
+  --shadow-soft: 0 18px 54px -38px oklch(0.42 0.12 350 / 0.48);
+  --shadow-pop: 0 24px 72px -36px oklch(0.5 0.17 350 / 0.48);
 
   --sidebar: oklch(0.985 0.012 340);
   --sidebar-foreground: oklch(0.28 0.09 320);
@@ -125,15 +125,15 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     background-image:
-      linear-gradient(120deg, oklch(0.98 0.03 100 / 0.88), oklch(0.94 0.045 150 / 0.68)),
+      linear-gradient(120deg, oklch(0.99 0.024 18 / 0.9), oklch(0.95 0.045 348 / 0.72)),
       repeating-radial-gradient(
         ellipse at 18% 0%,
-        oklch(0.74 0.1 150 / 0.16) 0 1px,
+        oklch(0.74 0.14 350 / 0.14) 0 1px,
         transparent 1px 22px
       ),
       repeating-radial-gradient(
         ellipse at 95% 86%,
-        oklch(0.74 0.12 32 / 0.14) 0 1px,
+        oklch(0.72 0.1 156 / 0.12) 0 1px,
         transparent 1px 28px
       );
     background-attachment: fixed;
@@ -149,7 +149,11 @@
 
 @utility glass-card {
   background:
-    linear-gradient(145deg, color-mix(in oklab, var(--card) 91%, transparent), oklch(0.94 0.04 100 / 0.74)),
+    linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--card) 91%, transparent),
+      oklch(0.94 0.04 100 / 0.74)
+    ),
     color-mix(in oklab, var(--card) 86%, transparent);
   backdrop-filter: blur(12px);
   border: 1px solid color-mix(in oklab, var(--primary) 18%, transparent);
@@ -203,7 +207,11 @@
   border-radius: 58% 42% 54% 46% / 44% 62% 38% 56%;
   background:
     linear-gradient(145deg, oklch(0.86 0.11 150 / 0.35), transparent 64%),
-    repeating-radial-gradient(ellipse at center, oklch(0.52 0.09 150 / 0.16) 0 1px, transparent 1px 18px);
+    repeating-radial-gradient(
+      ellipse at center,
+      oklch(0.52 0.09 150 / 0.16) 0 1px,
+      transparent 1px 18px
+    );
   transform: rotate(-12deg);
 }
 
@@ -215,7 +223,11 @@
   border-radius: 48% 52% 44% 56% / 58% 38% 62% 42%;
   background:
     linear-gradient(135deg, oklch(0.91 0.08 28 / 0.34), transparent 62%),
-    repeating-radial-gradient(ellipse at center, oklch(0.6 0.09 38 / 0.12) 0 1px, transparent 1px 20px);
+    repeating-radial-gradient(
+      ellipse at center,
+      oklch(0.6 0.09 38 / 0.12) 0 1px,
+      transparent 1px 20px
+    );
   transform: rotate(16deg);
 }
 
@@ -241,11 +253,7 @@
   pointer-events: none;
   background:
     linear-gradient(115deg, oklch(1 0 0 / 0.42), transparent 34%),
-    repeating-linear-gradient(
-      112deg,
-      transparent 0 16px,
-      oklch(0.55 0.08 145 / 0.035) 16px 17px
-    );
+    repeating-linear-gradient(112deg, transparent 0 16px, oklch(0.55 0.08 145 / 0.035) 16px 17px);
   mix-blend-mode: multiply;
 }
 
@@ -326,5 +334,209 @@
 
   .organic-shell button {
     transition: none;
+  }
+}
+
+.organic-shell::before,
+.organic-shell::after {
+  border: 1px solid color-mix(in oklab, var(--primary) 18%, transparent);
+  background:
+    repeating-linear-gradient(
+      105deg,
+      transparent 0 18px,
+      color-mix(in oklab, var(--primary) 11%, transparent) 18px 19px
+    ),
+    color-mix(in oklab, var(--blush) 30%, transparent);
+  filter: none;
+  opacity: 0.36;
+}
+
+.lotus-title {
+  color: var(--primary);
+  text-shadow: 0 12px 40px color-mix(in oklab, var(--bubblegum) 24%, transparent);
+}
+
+.auth-strip {
+  border-block: 1px solid color-mix(in oklab, var(--primary) 18%, transparent);
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--card) 48%, transparent),
+    color-mix(in oklab, var(--blush) 62%, transparent),
+    color-mix(in oklab, var(--card) 48%, transparent)
+  );
+  border-radius: 999px 999px 999px 1.4rem;
+}
+
+.stat-garden {
+  border-block: 1px solid color-mix(in oklab, var(--primary) 18%, transparent);
+  padding-block: 0.85rem;
+}
+
+.metric-frond {
+  min-height: 8.25rem;
+  padding: 0.85rem 0.85rem 0.95rem;
+  border-left: 1px solid color-mix(in oklab, var(--primary) 18%, transparent);
+  background: transparent;
+}
+
+.metric-frond:first-child {
+  border-left: 0;
+}
+
+.metric-icon {
+  border-radius: 999px 999px 999px 0.35rem;
+  background: color-mix(in oklab, var(--secondary) 76%, transparent);
+}
+
+.affirmation-bloom {
+  border-radius: 4rem 999px 999px 4rem;
+  background:
+    radial-gradient(
+      ellipse at 12% 50%,
+      color-mix(in oklab, var(--primary-foreground) 26%, transparent),
+      transparent 34%
+    ),
+    linear-gradient(100deg, oklch(0.55 0.18 350), oklch(0.77 0.14 18) 72%, oklch(0.69 0.12 154));
+  box-shadow: 0 18px 54px -34px color-mix(in oklab, var(--primary) 65%, transparent);
+}
+
+.tab-stream {
+  border-block: 1px solid color-mix(in oklab, var(--primary) 18%, transparent);
+  background: transparent;
+}
+
+.tab-stream button {
+  border-radius: 0;
+}
+
+.tab-stream .active-tab {
+  background: transparent;
+  box-shadow: inset 0 -3px 0 var(--primary);
+}
+
+.ledger-sheet,
+.chart-bloom,
+.number-panel,
+.note-stack,
+.meter-panel,
+.streak-panel,
+.chart-pond,
+.assumption-panel {
+  position: relative;
+  overflow: hidden;
+  border-block: 1px solid color-mix(in oklab, var(--primary) 16%, transparent);
+  border-inline: 0;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--card) 58%, transparent),
+      color-mix(in oklab, var(--blush) 18%, transparent)
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 2.65rem,
+      color-mix(in oklab, var(--primary) 8%, transparent) 2.65rem calc(2.65rem + 1px)
+    );
+  box-shadow: none;
+}
+
+.ledger-sheet,
+.chart-pond {
+  border-radius: 0 3.2rem 0 2.4rem;
+}
+
+.chart-bloom,
+.meter-panel {
+  border-radius: 3.2rem 0 2.4rem 0;
+}
+
+.number-panel,
+.note-stack,
+.streak-panel,
+.assumption-panel {
+  border-radius: 0;
+  border-inline: 0;
+  box-shadow: none;
+}
+
+.ledger-row,
+.river-row,
+.note-line {
+  border-bottom: 1px solid color-mix(in oklab, var(--primary) 13%, transparent);
+  background: transparent;
+}
+
+.ledger-row:last-child,
+.river-row:last-child,
+.note-line:last-child {
+  border-bottom: 0;
+}
+
+.seed-row,
+.status-strip,
+.split-metric {
+  border-radius: 0 1.4rem 0 1.4rem;
+  border-block: 1px solid color-mix(in oklab, var(--primary) 16%, transparent);
+  border-inline: 0;
+  background: color-mix(in oklab, var(--blush) 30%, transparent);
+}
+
+.goal-garden {
+  align-items: stretch;
+}
+
+.goal-stem,
+.path-step,
+.add-goal {
+  border-top: 1px solid color-mix(in oklab, var(--primary) 20%, transparent);
+  border-bottom: 1px solid color-mix(in oklab, var(--primary) 12%, transparent);
+  border-inline: 0;
+  background:
+    linear-gradient(115deg, color-mix(in oklab, var(--card) 42%, transparent), transparent),
+    color-mix(in oklab, var(--blush) 18%, transparent);
+  border-radius: 0 2.6rem 0 2.1rem;
+}
+
+.goal-stem:nth-child(2n),
+.path-step:nth-child(2n) {
+  border-radius: 2.6rem 0 2.1rem 0;
+}
+
+.add-goal {
+  border-style: dashed;
+  border-inline: 1px dashed color-mix(in oklab, var(--primary) 24%, transparent);
+}
+
+.lotus-number {
+  color: var(--primary);
+}
+
+@media (max-width: 640px) {
+  .metric-frond {
+    border-left: 0;
+    border-top: 1px solid color-mix(in oklab, var(--primary) 14%, transparent);
+  }
+
+  .metric-frond:nth-child(-n + 2) {
+    border-top: 0;
+  }
+
+  .ledger-sheet,
+  .chart-bloom,
+  .number-panel,
+  .note-stack,
+  .meter-panel,
+  .streak-panel,
+  .chart-pond,
+  .assumption-panel,
+  .goal-stem,
+  .path-step,
+  .add-goal {
+    border-radius: 1.45rem;
+  }
+
+  .affirmation-bloom,
+  .auth-strip {
+    border-radius: 1.45rem 1.9rem 1.45rem 1.9rem;
   }
 }

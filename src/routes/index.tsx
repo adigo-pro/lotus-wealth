@@ -55,14 +55,12 @@ function Stat({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="glass-card rounded-3xl p-4 sm:p-5">
+    <div className="metric-frond">
       <div className="flex items-center justify-between gap-2">
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
           {label}
         </span>
-        <span className="grid size-8 place-items-center rounded-full bg-secondary text-primary">
-          {icon}
-        </span>
+        <span className="metric-icon grid size-8 place-items-center text-primary">{icon}</span>
       </div>
       <p className="mt-3 font-display text-2xl font-bold sm:text-3xl">{value}</p>
       <p className="mt-1 text-xs text-muted-foreground">{hint}</p>
@@ -146,7 +144,7 @@ function AuthPanel() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto mt-6 max-w-2xl rounded-2xl border border-border bg-card/75 px-4 py-3 text-sm font-semibold text-muted-foreground">
+      <div className="auth-strip mx-auto mt-6 max-w-2xl px-4 py-3 text-sm font-semibold text-muted-foreground">
         Opening your money workspace...
       </div>
     );
@@ -154,7 +152,7 @@ function AuthPanel() {
 
   if (isAuthenticated) {
     return (
-      <div className="mx-auto mt-6 flex max-w-2xl flex-wrap items-center justify-between gap-3 rounded-2xl border border-mint/40 bg-card/80 px-4 py-3">
+      <div className="auth-strip mx-auto mt-6 flex max-w-2xl flex-wrap items-center justify-between gap-3 px-4 py-3">
         <p className="text-sm font-semibold">Signed in. Your budget is saved.</p>
         <button
           onClick={() => void signOut()}
@@ -176,7 +174,7 @@ function AuthPanel() {
           setError(err instanceof Error ? err.message : "Could not sign in."),
         );
       }}
-      className="mx-auto mt-6 grid max-w-2xl gap-2 rounded-2xl border border-primary/20 bg-card/80 p-3 sm:grid-cols-[1fr_1fr_auto_auto]"
+      className="auth-strip mx-auto mt-6 grid max-w-2xl gap-2 p-3 sm:grid-cols-[1fr_1fr_auto_auto]"
     >
       <input
         name="email"
@@ -244,7 +242,7 @@ function Index() {
           <Sparkles className="size-3.5" /> Lotus Wealth 🪷
         </span>
         <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
-          <span className="gradient-text">Lotus</span>
+          <span className="lotus-title">Lotus</span>
           <br />
           Wealth
         </h1>
@@ -255,7 +253,7 @@ function Index() {
         {isConvexConfigured ? (
           <AuthPanel />
         ) : (
-          <div className="mx-auto mt-6 max-w-2xl rounded-2xl border border-gold/40 bg-card/75 px-4 py-3 text-sm font-semibold text-muted-foreground">
+          <div className="auth-strip mx-auto mt-6 max-w-2xl px-4 py-3 text-sm font-semibold text-muted-foreground">
             Local preview mode. Sign-in saving is available on the live app.
           </div>
         )}
@@ -263,7 +261,7 @@ function Index() {
 
       <button
         onClick={() => setAffIndex((i) => (i + 1) % AFFIRMATIONS.length)}
-        className="affirmation-bloom dream-gradient float-slow mx-auto mt-8 flex w-full max-w-2xl items-center gap-3 rounded-3xl px-5 py-4 text-left text-primary-foreground shadow-[var(--shadow-pop)] transition-transform active:scale-[0.99]"
+        className="affirmation-bloom float-slow mx-auto mt-8 flex w-full max-w-2xl items-center gap-3 px-5 py-4 text-left text-primary-foreground transition-transform active:scale-[0.99]"
       >
         <Heart className="size-5 shrink-0" />
         <span className="font-display text-base font-semibold sm:text-lg">
@@ -301,15 +299,13 @@ function Index() {
         />
       </section>
 
-      <nav className="tab-stream mt-8 flex snap-x gap-2 overflow-x-auto rounded-full border border-border bg-card/70 p-1.5 backdrop-blur">
+      <nav className="tab-stream mt-8 flex snap-x gap-2 overflow-x-auto p-1.5">
         {TABS.map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={`snap-start whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-              tab === t
-                ? "dream-gradient text-primary-foreground shadow-[var(--shadow-soft)]"
-                : "text-muted-foreground hover:text-primary"
+              tab === t ? "active-tab text-primary" : "text-muted-foreground hover:text-primary"
             }`}
           >
             {t}
@@ -318,8 +314,8 @@ function Index() {
       </nav>
 
       {tab === "Budget" && (
-        <section className="mt-6 grid gap-4 lg:grid-cols-[1.35fr_1fr]">
-          <div className="glass-card rounded-3xl p-4 sm:p-6">
+        <section className="budget-workspace mt-6 grid gap-6 lg:grid-cols-[1.35fr_0.95fr]">
+          <div className="ledger-sheet p-4 sm:p-6">
             <h2 className="font-display text-xl font-bold">The spreadsheet</h2>
             <p className="text-xs text-muted-foreground">
               Tap the dot to mark a line as a need. Everything else is a want, bestie.
@@ -327,10 +323,7 @@ function Index() {
 
             <ul className="mt-4 space-y-2">
               {state.expenses.map((e) => (
-                <li
-                  key={e.id}
-                  className="flex items-center gap-3 rounded-2xl border border-border bg-card px-3 py-2.5"
-                >
+                <li key={e.id} className="ledger-row flex items-center gap-3 px-3 py-2.5">
                   <button
                     aria-label="toggle essential"
                     onClick={() =>
@@ -380,7 +373,7 @@ function Index() {
               ))}
             </ul>
 
-            <div className="mt-4 grid gap-2 rounded-2xl border border-dashed border-primary/30 p-3 sm:grid-cols-[1.4fr_0.8fr_1fr_auto]">
+            <div className="seed-row mt-4 grid gap-2 p-3 sm:grid-cols-[1.4fr_0.8fr_1fr_auto]">
               <input
                 placeholder="What did we buy…"
                 value={draft.name}
@@ -415,17 +408,17 @@ function Index() {
           </div>
 
           <div className="space-y-4">
-            <div className="glass-card rounded-3xl p-4 sm:p-6">
+            <div className="chart-bloom p-4 sm:p-6">
               <h2 className="font-display text-xl font-bold">Where it goes</h2>
               {hydrated ? <SpendPie data={d.byCategory} /> : <div className="h-56" />}
               <div className="grid grid-cols-2 gap-2 text-center">
-                <div className="rounded-2xl bg-secondary/70 p-3">
+                <div className="split-metric p-3">
                   <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
                     Needs
                   </p>
                   <p className="font-display text-lg font-bold">{money(d.needs)}</p>
                 </div>
-                <div className="rounded-2xl bg-secondary/70 p-3">
+                <div className="split-metric p-3">
                   <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
                     Wants
                   </p>
@@ -434,7 +427,7 @@ function Index() {
               </div>
             </div>
 
-            <div className="glass-card space-y-4 rounded-3xl p-4 sm:p-6">
+            <div className="number-panel space-y-4 p-4 sm:p-6">
               <h2 className="font-display text-xl font-bold">Your numbers</h2>
               <Field
                 label="Monthly income"
@@ -455,7 +448,7 @@ function Index() {
                 max={60}
               />
               <p
-                className={`rounded-2xl px-3 py-2 text-sm font-semibold ${
+                className={`status-strip px-3 py-2 text-sm font-semibold ${
                   d.freeFlow >= 0
                     ? "bg-mint/30 text-foreground"
                     : "bg-destructive/15 text-destructive"
@@ -471,8 +464,8 @@ function Index() {
       )}
 
       {tab === "Cashflow" && (
-        <section className="mt-6 grid gap-4 lg:grid-cols-[1fr_1fr]">
-          <div className="glass-card rounded-3xl p-5 sm:p-7">
+        <section className="mt-6 grid gap-6 lg:grid-cols-[1fr_1fr]">
+          <div className="ledger-sheet p-5 sm:p-7">
             <h2 className="font-display text-xl font-bold">Monthly runway</h2>
             <div className="mt-5 space-y-3">
               {[
@@ -483,10 +476,7 @@ function Index() {
                 ["Investments", -d.monthlyInvest],
                 ["Flexible cash", d.freeFlow],
               ].map(([label, value]) => (
-                <div
-                  key={label}
-                  className="flex items-center justify-between rounded-2xl bg-secondary/70 px-4 py-3"
-                >
+                <div key={label} className="river-row flex items-center justify-between px-4 py-3">
                   <span className="text-sm font-semibold">{label}</span>
                   <span
                     className={`font-display text-lg font-bold ${Number(value) < 0 ? "text-muted-foreground" : "text-primary"}`}
@@ -497,7 +487,7 @@ function Index() {
               ))}
             </div>
           </div>
-          <div className="glass-card rounded-3xl p-5 sm:p-7">
+          <div className="note-stack p-5 sm:p-7">
             <h2 className="font-display text-xl font-bold">Money workspace</h2>
             <div className="mt-4 grid gap-3">
               {[
@@ -506,7 +496,7 @@ function Index() {
                 ["Goals", "Follow progress toward emergency funds, trips, and investing targets."],
                 ["Cashflow", "See what is left after bills, savings, and investing."],
               ].map(([label, value]) => (
-                <div key={label} className="rounded-2xl border border-border bg-card px-4 py-3">
+                <div key={label} className="note-line px-4 py-3">
                   <p className="text-[11px] font-bold uppercase tracking-wider text-primary">
                     {label}
                   </p>
@@ -519,8 +509,8 @@ function Index() {
       )}
 
       {tab === "No-buy era" && (
-        <section className="mt-6 grid gap-4 lg:grid-cols-2">
-          <div className="glass-card rounded-3xl p-5 sm:p-7">
+        <section className="mt-6 grid gap-6 lg:grid-cols-2">
+          <div className="meter-panel p-5 sm:p-7">
             <h2 className="font-display text-xl font-bold">Underconsumption meter</h2>
             <p className="mt-1 text-xs text-muted-foreground">
               Wants as a share of income. Under 25% = quietly wealthy.
@@ -550,12 +540,12 @@ function Index() {
             </p>
           </div>
 
-          <div className="glass-card rounded-3xl p-5 sm:p-7">
+          <div className="streak-panel p-5 sm:p-7">
             <h2 className="font-display text-xl font-bold">No-buy streak</h2>
             <p className="mt-1 text-xs text-muted-foreground">
               Days you kept the cart abandoned. Consistency is the flex.
             </p>
-            <p className="gradient-text mt-6 font-display text-6xl font-bold sm:text-7xl">
+            <p className="lotus-number mt-6 font-display text-6xl font-bold sm:text-7xl">
               {state.noBuyStreak}
             </p>
             <div className="mt-5 flex gap-2">
@@ -573,7 +563,7 @@ function Index() {
               </button>
             </div>
             <div className="mt-6 grid grid-cols-2 gap-3">
-              <div className="rounded-2xl bg-secondary/70 p-3">
+              <div className="split-metric p-3">
                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
                   Skipped wants value
                 </p>
@@ -581,7 +571,7 @@ function Index() {
                   {money(Math.round((d.wants / 30) * state.noBuyStreak))}
                 </p>
               </div>
-              <div className="rounded-2xl bg-secondary/70 p-3">
+              <div className="split-metric p-3">
                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
                   If invested 30y
                 </p>
@@ -595,11 +585,11 @@ function Index() {
       )}
 
       {tab === "Goals" && (
-        <section className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <section className="goal-garden mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {state.goals.map((g) => {
             const pct = Math.min(100, (g.saved / (g.target || 1)) * 100);
             return (
-              <div key={g.id} className="glass-card rounded-3xl p-5">
+              <div key={g.id} className="goal-stem p-5">
                 <div className="flex items-start justify-between">
                   <span className="text-3xl">{g.emoji}</span>
                   <button
@@ -661,7 +651,7 @@ function Index() {
                 ],
               }))
             }
-            className="grid min-h-40 place-items-center rounded-3xl border-2 border-dashed border-primary/35 text-sm font-semibold text-primary transition-colors hover:bg-card/60"
+            className="add-goal grid min-h-40 place-items-center text-sm font-semibold text-primary transition-colors hover:bg-card/60"
           >
             <span className="flex items-center gap-2">
               <Plus className="size-4" /> New goal
@@ -671,8 +661,8 @@ function Index() {
       )}
 
       {tab === "Wealth" && (
-        <section className="mt-6 grid gap-4 lg:grid-cols-[1fr_320px]">
-          <div className="glass-card rounded-3xl p-4 sm:p-6">
+        <section className="mt-6 grid gap-6 lg:grid-cols-[1fr_320px]">
+          <div className="chart-pond p-4 sm:p-6">
             <h2 className="font-display text-xl font-bold">Compounding era</h2>
             <p className="text-xs text-muted-foreground">
               Investing {money(d.monthlyInvest)}/mo — the pink line is the market doing the heavy
@@ -680,7 +670,7 @@ function Index() {
             </p>
             {hydrated ? <WealthChart data={d.projection} /> : <div className="h-64" />}
             <div className="mt-3 grid grid-cols-2 gap-3">
-              <div className="rounded-2xl bg-secondary/70 p-3">
+              <div className="split-metric p-3">
                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
                   You contribute
                 </p>
@@ -688,7 +678,7 @@ function Index() {
                   {money(d.projection[d.projection.length - 1]?.contributed ?? 0)}
                 </p>
               </div>
-              <div className="rounded-2xl bg-secondary/70 p-3">
+              <div className="split-metric p-3">
                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
                   Free growth
                 </p>
@@ -702,7 +692,7 @@ function Index() {
             </div>
           </div>
 
-          <div className="glass-card space-y-5 rounded-3xl p-5">
+          <div className="assumption-panel space-y-5 p-5">
             <h2 className="font-display text-xl font-bold">Assumptions</h2>
             <Field
               label="Already invested"
@@ -723,7 +713,7 @@ function Index() {
               max={45}
               suffix="y"
             />
-            <p className="rounded-2xl bg-secondary/70 px-3 py-2 text-xs text-muted-foreground">
+            <p className="status-strip px-3 py-2 text-xs text-muted-foreground">
               Index funds, boring and beautiful. This is a projection, not financial advice — future
               you still has to press invest.
             </p>
@@ -732,7 +722,7 @@ function Index() {
       )}
 
       {tab === "Roadmap" && (
-        <section className="mt-6 grid gap-4 lg:grid-cols-3">
+        <section className="roadmap-path mt-6 grid gap-4 lg:grid-cols-3">
           {[
             [
               "1. Account Setup",
@@ -759,7 +749,7 @@ function Index() {
               "Add reminders, empty states, mobile refinements, and calmer monthly review flows.",
             ],
           ].map(([title, body]) => (
-            <div key={title} className="glass-card rounded-3xl p-5">
+            <div key={title} className="path-step p-5">
               <h3 className="font-display text-lg font-bold">{title}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{body}</p>
             </div>
