@@ -124,18 +124,7 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    background-image:
-      linear-gradient(120deg, oklch(0.99 0.024 18 / 0.9), oklch(0.95 0.045 348 / 0.72)),
-      repeating-radial-gradient(
-        ellipse at 18% 0%,
-        oklch(0.74 0.14 350 / 0.14) 0 1px,
-        transparent 1px 22px
-      ),
-      repeating-radial-gradient(
-        ellipse at 95% 86%,
-        oklch(0.72 0.1 156 / 0.12) 0 1px,
-        transparent 1px 28px
-      );
+    background-image: linear-gradient(180deg, oklch(0.98 0.018 26), oklch(0.965 0.03 348));
     background-attachment: fixed;
   }
 
@@ -339,21 +328,82 @@
 
 .organic-shell::before,
 .organic-shell::after {
-  border: 1px solid color-mix(in oklab, var(--primary) 18%, transparent);
-  background:
-    repeating-linear-gradient(
-      105deg,
-      transparent 0 18px,
-      color-mix(in oklab, var(--primary) 11%, transparent) 18px 19px
-    ),
-    color-mix(in oklab, var(--blush) 30%, transparent);
-  filter: none;
-  opacity: 0.36;
+  display: none;
 }
 
 .lotus-title {
   color: var(--primary);
   text-shadow: 0 12px 40px color-mix(in oklab, var(--bubblegum) 24%, transparent);
+}
+
+.site-nav {
+  border-bottom: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
+}
+
+.hero-editorial {
+  border-bottom: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.hero-editorial h1 {
+  color: oklch(0.18 0.035 342);
+  letter-spacing: 0;
+}
+
+.hero-editorial .auth-strip {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.phone-preview {
+  perspective: 1200px;
+}
+
+.phone-shell {
+  width: 350px;
+  min-height: 690px;
+  border: 12px solid oklch(0.18 0.035 342);
+  border-radius: 3.2rem;
+  background: oklch(0.18 0.035 342);
+  box-shadow: 0 36px 80px -50px oklch(0.25 0.07 342 / 0.72);
+  transform: rotate(0.6deg);
+}
+
+.phone-screen {
+  min-height: 666px;
+  border-radius: 2.35rem;
+  padding: 1.35rem;
+  background:
+    radial-gradient(
+      circle at 78% 8%,
+      color-mix(in oklab, var(--bubblegum) 28%, transparent),
+      transparent 28%
+    ),
+    linear-gradient(180deg, oklch(0.985 0.02 22), oklch(0.92 0.075 350));
+  color: var(--foreground);
+  overflow: hidden;
+}
+
+.phone-row {
+  border-bottom: 1px solid color-mix(in oklab, var(--primary) 16%, transparent);
+  padding-block: 0.85rem;
+  font-size: 0.9rem;
+}
+
+.phone-growth {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 1.4rem;
+  background: color-mix(in oklab, var(--primary-foreground) 66%, transparent);
+  padding: 1rem;
 }
 
 .auth-strip {

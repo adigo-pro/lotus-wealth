@@ -236,27 +236,87 @@ function Index() {
   };
 
   return (
-    <main className="organic-shell mx-auto w-full max-w-6xl px-4 pb-24 pt-8 sm:px-6 sm:pt-12 lg:px-8">
-      <header className="relative text-center">
-        <span className="lotus-mark inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-          <Sparkles className="size-3.5" /> Lotus Wealth 🪷
-        </span>
-        <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
-          <span className="lotus-title">Lotus</span>
-          <br />
-          Wealth
-        </h1>
-        <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground sm:text-base">
-          Track spending, plan cashflow, protect goals, and watch long-term wealth grow from
-          everyday decisions. Cute charts, calm money, less chaos.
-        </p>
-        {isConvexConfigured ? (
-          <AuthPanel />
-        ) : (
-          <div className="auth-strip mx-auto mt-6 max-w-2xl px-4 py-3 text-sm font-semibold text-muted-foreground">
-            Local preview mode. Sign-in saving is available on the live app.
+    <main className="organic-shell mx-auto w-full max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+      <nav className="site-nav flex items-center justify-between py-4">
+        <a href="/" className="font-display text-lg font-bold">
+          Lotus Wealth 🪷
+        </a>
+        <div className="flex items-center gap-5 text-sm font-medium text-muted-foreground">
+          <button onClick={() => setTab("Budget")} className="hover:text-foreground">
+            Budget
+          </button>
+          <button
+            onClick={() => setTab("Goals")}
+            className="hidden hover:text-foreground sm:inline"
+          >
+            Goals
+          </button>
+          <button
+            onClick={() => setTab("Wealth")}
+            className="rounded-full bg-foreground px-4 py-2 text-primary-foreground hover:bg-primary"
+          >
+            Plan
+          </button>
+        </div>
+      </nav>
+
+      <header className="hero-editorial grid min-h-[calc(100vh-5rem)] items-center gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_390px] lg:py-20">
+        <div>
+          <p className="eyebrow flex items-center gap-2">
+            <Sparkles className="size-3.5" /> money, made softer
+          </p>
+          <h1 className="mt-6 max-w-3xl font-display text-5xl font-bold leading-[0.96] sm:text-7xl lg:text-8xl">
+            Your budget should feel calm enough to open every day.
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+            Lotus Wealth keeps spending, cashflow, goals, and long-term growth in one warm place,
+            without turning your money into a spreadsheet you avoid.
+          </p>
+          <div className="mt-8 max-w-2xl">
+            {isConvexConfigured ? (
+              <AuthPanel />
+            ) : (
+              <div className="auth-strip px-4 py-3 text-sm font-semibold text-muted-foreground">
+                Local preview mode. Sign-in saving is available on the live app.
+              </div>
+            )}
           </div>
-        )}
+        </div>
+
+        <aside
+          className="phone-preview hidden justify-self-center lg:block"
+          aria-label="Lotus Wealth preview"
+        >
+          <div className="phone-shell">
+            <div className="phone-screen">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                  Lotus
+                </span>
+                <span className="text-lg">🪷</span>
+              </div>
+              <p className="mt-10 text-sm text-muted-foreground">left this month</p>
+              <p className="font-display text-5xl font-bold">{money(d.freeFlow)}</p>
+              <div className="mt-8 space-y-3">
+                {state.expenses.slice(0, 4).map((expense) => (
+                  <div key={expense.id} className="phone-row flex items-center justify-between">
+                    <span>{expense.name}</span>
+                    <strong>{money(expense.amount)}</strong>
+                  </div>
+                ))}
+              </div>
+              <div className="phone-growth mt-8">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                    projected
+                  </p>
+                  <p className="font-display text-2xl font-bold">{money(d.futureValue)}</p>
+                </div>
+                <TrendingUp className="size-5 text-primary" />
+              </div>
+            </div>
+          </div>
+        </aside>
       </header>
 
       <button
