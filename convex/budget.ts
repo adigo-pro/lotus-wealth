@@ -51,6 +51,7 @@ export const snapshot = query({
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);
     if (userId === null) return null;
+    const user = await ctx.db.get(userId);
     const profile = await ctx.db
       .query("budgetProfiles")
       .withIndex("by_user", (q) => q.eq("userId", userId))
@@ -73,7 +74,18 @@ export const snapshot = query({
       .withIndex("by_user", (q) => q.eq("userId", userId))
       .order("desc")
       .take(60);
-    return { profile, expenses, goals, recurringBills, transactions };
+    return {
+      account: {
+        email: user?.email,
+        name: user?.name,
+        createdAt: user?._creationTime,
+      },
+      profile,
+      expenses,
+      goals,
+      recurringBills,
+      transactions,
+    };
   },
 });
 

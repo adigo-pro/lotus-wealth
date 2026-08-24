@@ -48,6 +48,12 @@ export type BudgetState = {
   noBuyStreak: number;
 };
 
+export type AccountInfo = {
+  email?: string;
+  name?: string;
+  createdAt?: number;
+} | null;
+
 export const defaultState: BudgetState = {
   name: "bestie",
   income: 4200,
@@ -106,7 +112,7 @@ function useLocalBudget() {
     [],
   );
 
-  return { state, setState, update, hydrated };
+  return { state, setState, update, hydrated, account: null as AccountInfo };
 }
 
 function useConvexBudget() {
@@ -182,7 +188,7 @@ function useConvexBudget() {
     [setState],
   );
 
-  return { state, setState, update, hydrated };
+  return { state, setState, update, hydrated, account: snapshot?.account ?? null };
 }
 
 export const useBudget = isConvexConfigured ? useConvexBudget : useLocalBudget;

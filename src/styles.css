@@ -165,7 +165,7 @@
 }
 
 .hero-editorial {
-  border-bottom: 1px solid var(--hairline);
+  border-bottom: 0;
 }
 
 .eyebrow {
@@ -192,8 +192,16 @@
   border-radius: 1.5rem;
 }
 
+.account-strip {
+  max-width: 42rem;
+  border: 1px solid var(--softline);
+  border-radius: 1.25rem;
+  background: color-mix(in oklab, var(--card) 72%, transparent);
+}
+
 .stat-garden {
-  border-block: 1px solid var(--hairline);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 0;
   padding-block: 0.75rem;
 }
 
@@ -214,7 +222,7 @@
 }
 
 .tab-stream {
-  border-block: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
   background: transparent;
 }
 

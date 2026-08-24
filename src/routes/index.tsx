@@ -5,6 +5,7 @@ import { PiggyBank, Plus, Trash2, TrendingUp, Wallet, Flame, LogOut, Lock } from
 import { SpendPie, WealthChart } from "@/components/Charts";
 import {
   CATEGORIES,
+  type AccountInfo,
   type Category,
   derive,
   isConvexConfigured,
@@ -124,7 +125,16 @@ function Slider({
 const TABS = ["Budget", "Cashflow", "No-buy era", "Goals", "Wealth", "Roadmap"] as const;
 type Tab = (typeof TABS)[number];
 
-function AuthPanel() {
+function joinedDate(account: AccountInfo) {
+  if (!account?.createdAt) return "Joined today";
+  return `Joined ${new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(account.createdAt))}`;
+}
+
+function AuthPanel({ account }: { account: AccountInfo }) {
   const { isAuthenticated, isLoading } = useConvexAuth();
   const { signIn, signOut } = useAuthActions();
   const [step, setStep] = useState<"signIn" | "signUp">("signIn");
@@ -139,15 +149,27 @@ function AuthPanel() {
   }
 
   if (isAuthenticated) {
+    const accountLabel = account?.email ?? account?.name ?? "Account active";
+
     return (
-      <div className="auth-strip mx-auto mt-6 flex max-w-2xl flex-wrap items-center justify-between gap-3 px-4 py-3">
-        <p className="text-sm font-semibold">Signed in. Your budget is saved.</p>
-        <button
-          onClick={() => void signOut()}
-          className="inline-flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-xs font-bold text-muted-foreground hover:text-primary"
-        >
-          <LogOut className="size-4" /> Sign out
-        </button>
+      <div className="account-strip mt-8 grid gap-4 px-4 py-4 sm:grid-cols-[1fr_auto] sm:items-center">
+        <div>
+          <p className="text-sm font-semibold">Budget saved</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {accountLabel} · {joinedDate(account)}
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="hidden text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground sm:inline">
+            synced
+          </span>
+          <button
+            onClick={() => void signOut()}
+            className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-2 text-xs font-bold text-muted-foreground hover:text-primary"
+          >
+            <LogOut className="size-4" /> Sign out
+          </button>
+        </div>
       </div>
     );
   }
@@ -195,7 +217,7 @@ function AuthPanel() {
 }
 
 function Index() {
-  const { state, setState, update, hydrated } = useBudget();
+  const { state, setState, update, hydrated, account } = useBudget();
   const d = useMemo(() => derive(state), [state]);
   const [tab, setTab] = useState<Tab>("Budget");
   const [draft, setDraft] = useState<{ name: string; amount: string; category: Category }>({
@@ -247,7 +269,7 @@ function Index() {
         </div>
       </nav>
 
-      <header className="hero-editorial flex min-h-[68vh] items-center py-16 lg:py-24">
+      <header className="hero-editorial flex min-h-[60vh] items-center py-16 lg:py-20">
         <div className="max-w-4xl">
           <p className="eyebrow">Lotus Wealth</p>
           <h1 className="mt-6 max-w-3xl font-display text-5xl font-bold leading-[0.96] sm:text-7xl lg:text-8xl">
@@ -258,7 +280,7 @@ function Index() {
           </p>
           <div className="mt-8 max-w-2xl">
             {isConvexConfigured ? (
-              <AuthPanel />
+              <AuthPanel account={account} />
             ) : (
               <div className="auth-strip px-4 py-3 text-sm font-semibold text-muted-foreground">
                 Local preview mode. Sign-in saving is available on the live app.
@@ -268,7 +290,7 @@ function Index() {
         </div>
       </header>
 
-      <section className="stat-garden mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      <section className="stat-garden mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <Stat
           label="Monthly in"
           value={money(state.income)}
@@ -295,7 +317,7 @@ function Index() {
         />
       </section>
 
-      <nav className="tab-stream mt-8 flex snap-x gap-2 overflow-x-auto p-1.5">
+      <nav className="tab-stream mt-6 flex snap-x gap-2 overflow-x-auto p-1.5">
         {TABS.map((t) => (
           <button
             key={t}

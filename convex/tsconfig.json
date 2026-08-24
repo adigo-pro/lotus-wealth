@@ -2,7 +2,9 @@
   "compilerOptions": {
     "allowJs": true,
     "strict": true,
+    "module": "ESNext",
     "moduleResolution": "Bundler",
+    "noEmit": true,
     "jsx": "react-jsx",
     "skipLibCheck": true
   }
