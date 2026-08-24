@@ -99,163 +99,167 @@ export function BudgetPage() {
 
   return (
     <AppShell>
-      <PageHeader
-        title="Budget"
-        action={
-          <p className="font-display text-2xl font-semibold">{money(summary.freeFlow)} left</p>
-        }
-      />
+      <div className="mx-auto w-full max-w-6xl pb-12 sm:pb-16">
+        <PageHeader
+          title="Budget"
+          action={
+            <p className="font-display text-2xl font-semibold">{money(summary.freeFlow)} left</p>
+          }
+        />
 
-      <section className="budget-workspace grid gap-6 lg:grid-cols-[1.35fr_0.95fr]">
-        <div className="ledger-sheet p-4 sm:p-6">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <h2 className="font-display text-xl font-bold">Expenses</h2>
+        <section className="budget-workspace mt-6 grid gap-6 sm:mt-8 lg:grid-cols-[1.35fr_0.95fr]">
+          <div className="ledger-sheet p-4 sm:p-6">
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <h2 className="font-display text-xl font-bold">Expenses</h2>
+              </div>
+              <p className="text-sm font-semibold">{money(summary.totalSpend)}</p>
             </div>
-            <p className="text-sm font-semibold">{money(summary.totalSpend)}</p>
-          </div>
 
-          <ul className="mt-5">
-            {state.expenses.map((expense) => (
-              <li key={expense.id} className="ledger-row flex items-center gap-3 py-3">
-                <button
-                  aria-label={`Mark ${expense.name} as ${expense.essential ? "a want" : "a need"}`}
-                  aria-pressed={expense.essential}
-                  onClick={() =>
-                    setState((current) => ({
-                      ...current,
-                      expenses: current.expenses.map((item) =>
-                        item.id === expense.id ? { ...item, essential: !item.essential } : item,
-                      ),
-                    }))
-                  }
-                  className="grid size-11 shrink-0 place-items-center rounded-full"
-                >
-                  <span
-                    className={`size-5 rounded-full ${expense.essential ? "bg-primary" : "bg-muted-foreground/30"}`}
+            <ul className="mt-5">
+              {state.expenses.map((expense) => (
+                <li key={expense.id} className="ledger-row flex items-center gap-3 py-3">
+                  <button
+                    aria-label={`Mark ${expense.name} as ${expense.essential ? "a want" : "a need"}`}
+                    aria-pressed={expense.essential}
+                    onClick={() =>
+                      setState((current) => ({
+                        ...current,
+                        expenses: current.expenses.map((item) =>
+                          item.id === expense.id ? { ...item, essential: !item.essential } : item,
+                        ),
+                      }))
+                    }
+                    className="grid size-11 shrink-0 place-items-center rounded-full"
+                  >
+                    <span
+                      className={`size-5 rounded-full ${expense.essential ? "bg-primary" : "bg-muted-foreground/30"}`}
+                    />
+                  </button>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-semibold">{expense.name}</p>
+                    <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                      {expense.category}
+                    </p>
+                  </div>
+                  <input
+                    aria-label={`${expense.name} amount`}
+                    type="number"
+                    value={expense.amount}
+                    onChange={(event) =>
+                      setState((current) => ({
+                        ...current,
+                        expenses: current.expenses.map((item) =>
+                          item.id === expense.id
+                            ? { ...item, amount: Number(event.target.value) }
+                            : item,
+                        ),
+                      }))
+                    }
+                    className="w-20 bg-transparent text-right text-sm font-bold outline-none sm:w-24"
                   />
-                </button>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold">{expense.name}</p>
-                  <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
-                    {expense.category}
-                  </p>
-                </div>
-                <input
-                  aria-label={`${expense.name} amount`}
-                  type="number"
-                  value={expense.amount}
-                  onChange={(event) =>
-                    setState((current) => ({
-                      ...current,
-                      expenses: current.expenses.map((item) =>
-                        item.id === expense.id
-                          ? { ...item, amount: Number(event.target.value) }
-                          : item,
-                      ),
-                    }))
-                  }
-                  className="w-20 bg-transparent text-right text-sm font-bold outline-none sm:w-24"
-                />
-                <button
-                  aria-label={`Delete ${expense.name}`}
-                  onClick={() =>
-                    setState((current) => ({
-                      ...current,
-                      expenses: current.expenses.filter((item) => item.id !== expense.id),
-                    }))
-                  }
-                  className="grid size-11 shrink-0 place-items-center text-muted-foreground hover:text-destructive"
-                >
-                  <Trash2 className="size-4" />
-                </button>
-              </li>
-            ))}
-          </ul>
-
-          <div className="seed-row mt-5 grid gap-2 p-3 sm:grid-cols-[1.4fr_0.8fr_1fr_auto]">
-            <input
-              aria-label="Expense name"
-              placeholder="New expense"
-              value={draft.name}
-              onChange={(event) => setDraft({ ...draft, name: event.target.value })}
-              className="bg-card px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
-            />
-            <input
-              aria-label="Expense amount"
-              placeholder="$0"
-              type="number"
-              value={draft.amount}
-              onChange={(event) => setDraft({ ...draft, amount: event.target.value })}
-              className="bg-card px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
-            />
-            <select
-              aria-label="Expense category"
-              value={draft.category}
-              onChange={(event) => setDraft({ ...draft, category: event.target.value as Category })}
-              className="bg-card px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
-            >
-              {CATEGORIES.map((category) => (
-                <option key={category}>{category}</option>
+                  <button
+                    aria-label={`Delete ${expense.name}`}
+                    onClick={() =>
+                      setState((current) => ({
+                        ...current,
+                        expenses: current.expenses.filter((item) => item.id !== expense.id),
+                      }))
+                    }
+                    className="grid size-11 shrink-0 place-items-center text-muted-foreground hover:text-destructive"
+                  >
+                    <Trash2 className="size-4" />
+                  </button>
+                </li>
               ))}
-            </select>
-            <button
-              onClick={addExpense}
-              className="primary-button flex min-h-11 items-center justify-center gap-1 px-4 py-2 text-sm font-semibold"
-            >
-              <Plus className="size-4" /> Add
-            </button>
-          </div>
-        </div>
+            </ul>
 
-        <div className="space-y-6">
-          <div className="chart-bloom p-5 sm:p-6">
-            <h2 className="font-display text-xl font-bold">Where it goes</h2>
-            {hydrated ? <SpendPie data={summary.byCategory} /> : <div className="h-56" />}
-            <div className="grid grid-cols-2 gap-5 border-t border-border pt-4">
-              <div>
-                <p className="text-xs text-muted-foreground">Needs</p>
-                <p className="font-display text-xl font-bold">{money(summary.needs)}</p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Wants</p>
-                <p className="font-display text-xl font-bold">{money(summary.wants)}</p>
-              </div>
+            <div className="seed-row mt-5 grid gap-2 p-3 sm:grid-cols-[1.4fr_0.8fr_1fr_auto]">
+              <input
+                aria-label="Expense name"
+                placeholder="New expense"
+                value={draft.name}
+                onChange={(event) => setDraft({ ...draft, name: event.target.value })}
+                className="bg-card px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
+              />
+              <input
+                aria-label="Expense amount"
+                placeholder="$0"
+                type="number"
+                value={draft.amount}
+                onChange={(event) => setDraft({ ...draft, amount: event.target.value })}
+                className="bg-card px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
+              />
+              <select
+                aria-label="Expense category"
+                value={draft.category}
+                onChange={(event) =>
+                  setDraft({ ...draft, category: event.target.value as Category })
+                }
+                className="bg-card px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
+              >
+                {CATEGORIES.map((category) => (
+                  <option key={category}>{category}</option>
+                ))}
+              </select>
+              <button
+                onClick={addExpense}
+                className="primary-button flex min-h-11 items-center justify-center gap-1 px-4 py-2 text-sm font-semibold"
+              >
+                <Plus className="size-4" /> Add
+              </button>
             </div>
           </div>
-          <details className="number-panel p-5 sm:p-6">
-            <summary className="cursor-pointer list-none font-display text-lg font-semibold">
-              Monthly settings
-            </summary>
-            <div className="mt-5 space-y-5">
-              <Field
-                label="Income"
-                value={state.income}
-                onChange={(value) => update("income", value)}
-                suffix="$"
-              />
-              <Slider
-                label="Save"
-                value={state.savingsRate}
-                onChange={(value) => update("savingsRate", value)}
-                max={60}
-              />
-              <Slider
-                label="Invest"
-                value={state.investRate}
-                onChange={(value) => update("investRate", value)}
-                max={60}
-              />
+
+          <div className="space-y-6">
+            <div className="chart-bloom p-5 sm:p-6">
+              <h2 className="font-display text-xl font-bold">Where it goes</h2>
+              {hydrated ? <SpendPie data={summary.byCategory} /> : <div className="h-56" />}
+              <div className="grid grid-cols-2 gap-5 border-t border-border pt-4">
+                <div>
+                  <p className="text-xs text-muted-foreground">Needs</p>
+                  <p className="font-display text-xl font-bold">{money(summary.needs)}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">Wants</p>
+                  <p className="font-display text-xl font-bold">{money(summary.wants)}</p>
+                </div>
+              </div>
             </div>
-          </details>
-          <Link
-            to="/habits"
-            className="inline-flex min-h-11 items-center text-sm font-semibold text-muted-foreground hover:text-primary"
-          >
-            Review spending habits
-          </Link>
-        </div>
-      </section>
+            <details className="number-panel p-5 sm:p-6">
+              <summary className="cursor-pointer list-none font-display text-lg font-semibold">
+                Monthly settings
+              </summary>
+              <div className="mt-5 space-y-5">
+                <Field
+                  label="Income"
+                  value={state.income}
+                  onChange={(value) => update("income", value)}
+                  suffix="$"
+                />
+                <Slider
+                  label="Save"
+                  value={state.savingsRate}
+                  onChange={(value) => update("savingsRate", value)}
+                  max={60}
+                />
+                <Slider
+                  label="Invest"
+                  value={state.investRate}
+                  onChange={(value) => update("investRate", value)}
+                  max={60}
+                />
+              </div>
+            </details>
+            <Link
+              to="/habits"
+              className="inline-flex min-h-11 items-center text-sm font-semibold text-muted-foreground hover:text-primary"
+            >
+              Review spending habits
+            </Link>
+          </div>
+        </section>
+      </div>
     </AppShell>
   );
 }
@@ -273,33 +277,37 @@ export function CashflowPage() {
 
   return (
     <AppShell>
-      <PageHeader
-        title="Cash flow"
-        action={
-          <p className="font-display text-2xl font-semibold">{money(summary.freeFlow)} available</p>
-        }
-      />
-      <section className="max-w-3xl">
-        <div className="ledger-sheet p-5 sm:p-7">
-          <h2 className="font-display text-xl font-bold">Monthly flow</h2>
-          <div className="mt-5">
-            {rows.map(([label, value]) => (
-              <div key={label} className="river-row flex items-center justify-between py-4">
-                <span className="text-sm font-semibold">{label}</span>
-                <span
-                  className={
-                    Number(value) < 0
-                      ? "font-display text-lg text-muted-foreground"
-                      : "font-display text-lg font-bold"
-                  }
-                >
-                  {money(Number(value))}
-                </span>
-              </div>
-            ))}
+      <div className="mx-auto w-full max-w-3xl pb-12 sm:pb-16">
+        <PageHeader
+          title="Cash flow"
+          action={
+            <p className="font-display text-2xl font-semibold">
+              {money(summary.freeFlow)} available
+            </p>
+          }
+        />
+        <section className="mt-6 sm:mt-8">
+          <div className="ledger-sheet p-5 sm:p-7">
+            <h2 className="font-display text-xl font-bold">Monthly flow</h2>
+            <div className="mt-5">
+              {rows.map(([label, value]) => (
+                <div key={label} className="river-row flex items-center justify-between py-4">
+                  <span className="text-sm font-semibold">{label}</span>
+                  <span
+                    className={
+                      Number(value) < 0
+                        ? "font-display text-lg text-muted-foreground"
+                        : "font-display text-lg font-bold"
+                    }
+                  >
+                    {money(Number(value))}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </AppShell>
   );
 }
@@ -308,87 +316,89 @@ export function GoalsPage() {
   const { state, setState } = useBudget();
   return (
     <AppShell>
-      <PageHeader
-        title="Goals"
-        action={
-          <button
-            onClick={() =>
-              setState((current) => ({
-                ...current,
-                goals: [
-                  ...current.goals,
-                  {
-                    id: crypto.randomUUID(),
-                    name: "New goal",
-                    target: 2000,
-                    saved: 0,
-                    emoji: "🪷",
-                  },
-                ],
-              }))
-            }
-            className="primary-button inline-flex min-h-11 items-center gap-2 px-4 py-2.5 text-sm font-semibold"
-          >
-            <Plus className="size-4" /> New goal
-          </button>
-        }
-      />
-      <section className="goal-list border-t border-border">
-        {state.goals.map((goal) => {
-          const percent = Math.min(100, (goal.saved / (goal.target || 1)) * 100);
-          return (
-            <article
-              key={goal.id}
-              className="goal-line grid grid-cols-[auto_1fr_auto] gap-4 py-5 sm:grid-cols-[auto_1fr_1fr_auto] sm:items-center"
+      <div className="mx-auto w-full max-w-5xl pb-12 sm:pb-16">
+        <PageHeader
+          title="Goals"
+          action={
+            <button
+              onClick={() =>
+                setState((current) => ({
+                  ...current,
+                  goals: [
+                    ...current.goals,
+                    {
+                      id: crypto.randomUUID(),
+                      name: "New goal",
+                      target: 2000,
+                      saved: 0,
+                      emoji: "🪷",
+                    },
+                  ],
+                }))
+              }
+              className="primary-button inline-flex min-h-11 items-center gap-2 px-4 py-2.5 text-sm font-semibold"
             >
-              <span className="text-3xl" aria-hidden="true">
-                {goal.emoji}
-              </span>
-              <div>
-                <h2 className="font-display text-xl font-bold">{goal.name}</h2>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {money(goal.saved)} of {money(goal.target)}
-                </p>
-              </div>
-              <div className="col-span-3 row-start-2 sm:col-span-1 sm:row-auto">
-                <div className="h-2 overflow-hidden rounded-full bg-secondary">
-                  <div className="primary-fill h-full" style={{ width: `${percent}%` }} />
+              <Plus className="size-4" /> New goal
+            </button>
+          }
+        />
+        <section className="goal-list mt-6 border-t border-border sm:mt-8">
+          {state.goals.map((goal) => {
+            const percent = Math.min(100, (goal.saved / (goal.target || 1)) * 100);
+            return (
+              <article
+                key={goal.id}
+                className="goal-line grid grid-cols-[auto_1fr_auto] gap-4 py-5 sm:grid-cols-[auto_1fr_1fr_auto] sm:items-center"
+              >
+                <span className="text-3xl" aria-hidden="true">
+                  {goal.emoji}
+                </span>
+                <div>
+                  <h2 className="font-display text-xl font-bold">{goal.name}</h2>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {money(goal.saved)} of {money(goal.target)}
+                  </p>
                 </div>
-                <p className="mt-2 text-xs font-semibold text-primary">
-                  {Math.round(percent)}% complete
-                </p>
-              </div>
-              <div className="col-start-3 row-start-1 flex items-center gap-2 sm:col-auto sm:row-auto">
-                <button
-                  onClick={() =>
-                    setState((current) => ({
-                      ...current,
-                      goals: current.goals.map((item) =>
-                        item.id === goal.id ? { ...item, saved: item.saved + 100 } : item,
-                      ),
-                    }))
-                  }
-                  className="min-h-11 rounded-full bg-secondary px-3 py-2 text-xs font-bold"
-                >
-                  Add $100
-                </button>
-                <button
-                  aria-label={`Delete ${goal.name}`}
-                  onClick={() =>
-                    setState((current) => ({
-                      ...current,
-                      goals: current.goals.filter((item) => item.id !== goal.id),
-                    }))
-                  }
-                  className="grid size-11 place-items-center text-muted-foreground hover:text-destructive"
-                >
-                  <Trash2 className="size-4" />
-                </button>
-              </div>
-            </article>
-          );
-        })}
-      </section>
+                <div className="col-span-3 row-start-2 sm:col-span-1 sm:row-auto">
+                  <div className="h-2 overflow-hidden rounded-full bg-secondary">
+                    <div className="primary-fill h-full" style={{ width: `${percent}%` }} />
+                  </div>
+                  <p className="mt-2 text-xs font-semibold text-primary">
+                    {Math.round(percent)}% complete
+                  </p>
+                </div>
+                <div className="col-start-3 row-start-1 flex items-center gap-2 sm:col-auto sm:row-auto">
+                  <button
+                    onClick={() =>
+                      setState((current) => ({
+                        ...current,
+                        goals: current.goals.map((item) =>
+                          item.id === goal.id ? { ...item, saved: item.saved + 100 } : item,
+                        ),
+                      }))
+                    }
+                    className="min-h-11 rounded-full bg-secondary px-3 py-2 text-xs font-bold"
+                  >
+                    Add $100
+                  </button>
+                  <button
+                    aria-label={`Delete ${goal.name}`}
+                    onClick={() =>
+                      setState((current) => ({
+                        ...current,
+                        goals: current.goals.filter((item) => item.id !== goal.id),
+                      }))
+                    }
+                    className="grid size-11 place-items-center text-muted-foreground hover:text-destructive"
+                  >
+                    <Trash2 className="size-4" />
+                  </button>
+                </div>
+              </article>
+            );
+          })}
+        </section>
+      </div>
     </AppShell>
   );
 }
@@ -398,50 +408,54 @@ export function HabitsPage() {
   const summary = useMemo(() => derive(state), [state]);
   return (
     <AppShell>
-      <PageHeader title="Habits" />
-      <section className="grid gap-8 lg:grid-cols-2">
-        <div className="meter-panel p-6 sm:p-8">
-          <p className="text-sm text-muted-foreground">Wants</p>
-          <p className="mt-3 font-display text-4xl font-semibold">
-            {Math.round(summary.wantsShare)}%
-          </p>
-          <div className="mt-6 h-2 overflow-hidden rounded-full bg-secondary">
-            <div
-              className="primary-fill h-full"
-              style={{ width: `${Math.min(100, summary.wantsShare)}%` }}
-            />
+      <div className="mx-auto w-full max-w-4xl pb-12 sm:pb-16">
+        <PageHeader title="Habits" />
+        <section className="mt-6 grid gap-6 sm:mt-8 lg:grid-cols-2">
+          <div className="meter-panel p-6 sm:p-8">
+            <p className="text-sm text-muted-foreground">Wants</p>
+            <p className="mt-3 font-display text-4xl font-semibold">
+              {Math.round(summary.wantsShare)}%
+            </p>
+            <div className="mt-6 h-2 overflow-hidden rounded-full bg-secondary">
+              <div
+                className="primary-fill h-full"
+                style={{ width: `${Math.min(100, summary.wantsShare)}%` }}
+              />
+            </div>
+            <div className="mt-3 flex justify-between text-xs text-muted-foreground">
+              <span>0%</span>
+              <span>25% guide</span>
+              <span>50%+</span>
+            </div>
+            <p className="mt-6 text-sm leading-6 text-muted-foreground">
+              {summary.wantsShare < 25 ? "Within the 25% guide." : "Above the 25% guide."}
+            </p>
           </div>
-          <div className="mt-3 flex justify-between text-xs text-muted-foreground">
-            <span>0%</span>
-            <span>25% guide</span>
-            <span>50%+</span>
+          <div className="streak-panel p-6 sm:p-8">
+            <p className="text-sm text-muted-foreground">No-buy streak</p>
+            <div className="mt-3 flex items-end gap-3">
+              <p className="font-display text-4xl font-semibold text-primary">
+                {state.noBuyStreak}
+              </p>
+              <p className="pb-2 text-sm text-muted-foreground">days</p>
+            </div>
+            <div className="mt-6 flex gap-3">
+              <button
+                onClick={() => update("noBuyStreak", state.noBuyStreak + 1)}
+                className="primary-button flex-1 px-4 py-3 text-sm font-semibold"
+              >
+                Add a day
+              </button>
+              <button
+                onClick={() => update("noBuyStreak", 0)}
+                className="rounded-full border border-border px-4 py-3 text-sm font-semibold text-muted-foreground"
+              >
+                Reset
+              </button>
+            </div>
           </div>
-          <p className="mt-6 text-sm leading-6 text-muted-foreground">
-            {summary.wantsShare < 25 ? "Within the 25% guide." : "Above the 25% guide."}
-          </p>
-        </div>
-        <div className="streak-panel p-6 sm:p-8">
-          <p className="text-sm text-muted-foreground">No-buy streak</p>
-          <div className="mt-3 flex items-end gap-3">
-            <p className="font-display text-4xl font-semibold text-primary">{state.noBuyStreak}</p>
-            <p className="pb-2 text-sm text-muted-foreground">days</p>
-          </div>
-          <div className="mt-6 flex gap-3">
-            <button
-              onClick={() => update("noBuyStreak", state.noBuyStreak + 1)}
-              className="primary-button flex-1 px-4 py-3 text-sm font-semibold"
-            >
-              Add a day
-            </button>
-            <button
-              onClick={() => update("noBuyStreak", 0)}
-              className="rounded-full border border-border px-4 py-3 text-sm font-semibold text-muted-foreground"
-            >
-              Reset
-            </button>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </AppShell>
   );
 }
@@ -452,55 +466,57 @@ export function PlanPage() {
   const contributed = summary.projection[summary.projection.length - 1]?.contributed ?? 0;
   return (
     <AppShell>
-      <PageHeader
-        title="Plan"
-        description={`${money(summary.futureValue)} projected in ${state.years} years`}
-      />
-      <section className="grid gap-6 lg:grid-cols-[1fr_320px]">
-        <div className="chart-pond p-5 sm:p-7">
-          <div className="flex flex-wrap items-end justify-between gap-3">
-            <h2 className="font-display text-xl font-bold">Growth projection</h2>
-            <p className="text-sm text-muted-foreground">
-              {money(summary.monthlyInvest)} invested monthly
-            </p>
-          </div>
-          {hydrated ? <WealthChart data={summary.projection} /> : <div className="h-64" />}
-          <div className="grid grid-cols-2 gap-6 border-t border-border pt-5">
-            <div>
-              <p className="text-xs text-muted-foreground">Contributions</p>
-              <p className="mt-1 font-display text-xl font-bold">{money(contributed)}</p>
-            </div>
-            <div>
-              <p className="text-xs text-muted-foreground">Estimated growth</p>
-              <p className="mt-1 font-display text-xl font-bold text-primary">
-                {money(summary.futureValue - contributed)}
+      <div className="mx-auto w-full max-w-6xl pb-12 sm:pb-16">
+        <PageHeader
+          title="Plan"
+          description={`${money(summary.futureValue)} projected in ${state.years} years`}
+        />
+        <section className="mt-6 grid gap-6 sm:mt-8 lg:grid-cols-[1fr_320px]">
+          <div className="chart-pond p-5 sm:p-7">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <h2 className="font-display text-xl font-bold">Growth projection</h2>
+              <p className="text-sm text-muted-foreground">
+                {money(summary.monthlyInvest)} invested monthly
               </p>
             </div>
+            {hydrated ? <WealthChart data={summary.projection} /> : <div className="h-64" />}
+            <div className="grid grid-cols-2 gap-6 border-t border-border pt-5">
+              <div>
+                <p className="text-xs text-muted-foreground">Contributions</p>
+                <p className="mt-1 font-display text-xl font-bold">{money(contributed)}</p>
+              </div>
+              <div>
+                <p className="text-xs text-muted-foreground">Estimated growth</p>
+                <p className="mt-1 font-display text-xl font-bold text-primary">
+                  {money(summary.futureValue - contributed)}
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-        <aside className="assumption-panel space-y-6 p-5 sm:p-6">
-          <h2 className="font-display text-xl font-bold">Assumptions</h2>
-          <Field
-            label="Already invested"
-            value={state.startingInvested}
-            onChange={(value) => update("startingInvested", value)}
-            suffix="$"
-          />
-          <Slider
-            label="Average return"
-            value={state.returnRate}
-            onChange={(value) => update("returnRate", value)}
-            max={15}
-          />
-          <Slider
-            label="Time horizon"
-            value={state.years}
-            onChange={(value) => update("years", Math.max(1, value))}
-            max={45}
-            suffix=" years"
-          />
-        </aside>
-      </section>
+          <aside className="assumption-panel space-y-6 p-5 sm:p-6">
+            <h2 className="font-display text-xl font-bold">Assumptions</h2>
+            <Field
+              label="Already invested"
+              value={state.startingInvested}
+              onChange={(value) => update("startingInvested", value)}
+              suffix="$"
+            />
+            <Slider
+              label="Average return"
+              value={state.returnRate}
+              onChange={(value) => update("returnRate", value)}
+              max={15}
+            />
+            <Slider
+              label="Time horizon"
+              value={state.years}
+              onChange={(value) => update("years", Math.max(1, value))}
+              max={45}
+              suffix=" years"
+            />
+          </aside>
+        </section>
+      </div>
     </AppShell>
   );
 }
