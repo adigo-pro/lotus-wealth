@@ -12,11 +12,7 @@ function AccountPage() {
   const { account } = useBudget();
   return (
     <AppShell>
-      <PageHeader
-        eyebrow="Account"
-        title="Your place in Lotus Wealth."
-        description="Sign in to keep your budget, goals, and plan available whenever you return."
-      />
+      <PageHeader title="Account" />
       {isConvexConfigured ? (
         <AccountAccess account={account} />
       ) : (

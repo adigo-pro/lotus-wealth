@@ -19,6 +19,10 @@ const NAV_ITEMS = [
   { to: "/plan", label: "Plan", icon: ChartNoAxesCombined },
 ] as const;
 
+const MOBILE_NAV_ITEMS = NAV_ITEMS.filter(({ to }) =>
+  ["/", "/budget", "/goals", "/plan"].includes(to),
+);
+
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <main className="organic-shell mx-auto min-h-screen w-full max-w-7xl px-4 pb-28 sm:px-6 lg:px-8 lg:pb-16">
@@ -53,8 +57,8 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       {children}
 
-      <nav className="mobile-nav fixed inset-x-3 bottom-3 z-50 grid grid-cols-6 lg:hidden">
-        {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
+      <nav className="mobile-nav fixed inset-x-3 bottom-3 z-50 grid grid-cols-4 lg:hidden">
+        {MOBILE_NAV_ITEMS.map(({ to, label, icon: Icon }) => (
           <Link
             key={to}
             to={to}
@@ -71,24 +75,23 @@ export function AppShell({ children }: { children: ReactNode }) {
 }
 
 export function PageHeader({
-  eyebrow,
   title,
   description,
   action,
 }: {
-  eyebrow: string;
   title: string;
-  description: string;
+  description?: string;
   action?: ReactNode;
 }) {
   return (
-    <header className="page-heading grid gap-6 py-10 sm:py-14 lg:grid-cols-[1fr_auto] lg:items-end">
+    <header className="page-heading grid gap-4 py-7 sm:py-9 lg:grid-cols-[1fr_auto] lg:items-end">
       <div>
-        <p className="eyebrow">{eyebrow}</p>
-        <h1 className="mt-3 max-w-3xl font-display text-4xl font-bold leading-tight sm:text-5xl">
+        <h1 className="max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-4xl">
           {title}
         </h1>
-        <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground">{description}</p>
+        {description ? (
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">{description}</p>
+        ) : null}
       </div>
       {action}
     </header>

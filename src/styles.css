@@ -63,7 +63,7 @@
   --card-foreground: oklch(0.27 0.065 342);
   --popover: oklch(0.992 0.018 24);
   --popover-foreground: oklch(0.27 0.065 342);
-  --primary: oklch(0.58 0.17 350);
+  --primary: oklch(0.58 0.135 350);
   --primary-foreground: oklch(0.99 0.014 24);
   --secondary: oklch(0.93 0.052 18);
   --secondary-foreground: oklch(0.35 0.09 350);
@@ -75,7 +75,7 @@
   --destructive-foreground: oklch(0.99 0.015 86);
   --border: oklch(0.88 0.035 348);
   --input: oklch(0.9 0.034 348);
-  --ring: oklch(0.58 0.17 350);
+  --ring: oklch(0.58 0.135 350);
 
   --bubblegum: oklch(0.74 0.18 351);
   --grape: oklch(0.5 0.1 304);
@@ -165,22 +165,20 @@
 }
 
 .nav-link {
-  border-radius: 999px;
+  border-radius: 0;
 }
 
 .nav-link:hover,
 .nav-link-active {
-  color: var(--foreground);
-  background: color-mix(in oklab, var(--primary) 8%, transparent);
+  color: var(--primary);
+  background: transparent;
 }
 
 .mobile-nav {
   overflow: hidden;
   border: 1px solid var(--hairline);
-  border-radius: 1rem;
-  background: color-mix(in oklab, var(--background) 94%, transparent);
-  box-shadow: 0 12px 32px -20px color-mix(in oklab, var(--foreground) 45%, transparent);
-  backdrop-filter: blur(14px);
+  border-radius: 0.75rem;
+  background: var(--background);
 }
 
 .mobile-nav-link {
@@ -213,7 +211,7 @@
 
 .account-access {
   border: 1px solid var(--softline);
-  border-radius: 1.25rem;
+  border-radius: 0.75rem;
   background: color-mix(in oklab, var(--card) 64%, transparent);
 }
 
@@ -222,7 +220,7 @@
 }
 
 .cashflow-balance {
-  border-top: 3px solid var(--primary);
+  border-top: 1px solid var(--hairline);
   background: color-mix(in oklab, var(--primary) 5%, transparent);
 }
 
@@ -236,7 +234,7 @@
 
 .eyebrow {
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--primary);
@@ -313,7 +311,7 @@
   overflow: hidden;
   border: 1px solid var(--hairline);
   background: color-mix(in oklab, var(--card) 68%, transparent);
-  border-radius: 1.5rem;
+  border-radius: 0.75rem;
   box-shadow: none;
 }
 
@@ -341,7 +339,7 @@
 .status-strip,
 .split-metric {
   border: 1px solid var(--hairline);
-  border-radius: 1rem;
+  border-radius: 0.65rem;
   background: color-mix(in oklab, var(--card) 58%, transparent);
 }
 
@@ -380,9 +378,16 @@
 }
 
 @media (max-width: 640px) {
-  .overview-metric + .overview-metric {
-    border-left: 0;
-    border-top: 1px solid var(--hairline);
+  .overview-metric p:last-child {
+    font-size: 1.15rem;
+  }
+
+  .destination-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .destination-row p {
+    display: none;
   }
 
   .metric-frond {

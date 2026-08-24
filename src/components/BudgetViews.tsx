@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { SpendPie, WealthChart } from "@/components/Charts";
@@ -99,10 +100,10 @@ export function BudgetPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Monthly budget"
-        title="Give every dollar a place."
-        description="Edit your income, set what you want to keep, and keep the month honest as spending changes."
-        action={<p className="font-display text-3xl font-bold">{money(summary.freeFlow)} free</p>}
+        title="Budget"
+        action={
+          <p className="font-display text-2xl font-semibold">{money(summary.freeFlow)} left</p>
+        }
       />
 
       <section className="budget-workspace grid gap-6 lg:grid-cols-[1.35fr_0.95fr]">
@@ -110,7 +111,6 @@ export function BudgetPage() {
           <div className="flex items-end justify-between gap-4">
             <div>
               <h2 className="font-display text-xl font-bold">Expenses</h2>
-              <p className="mt-1 text-xs text-muted-foreground">Select the dot to mark a need.</p>
             </div>
             <p className="text-sm font-semibold">{money(summary.totalSpend)}</p>
           </div>
@@ -133,7 +133,7 @@ export function BudgetPage() {
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold">{expense.name}</p>
                   <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
-                    {expense.category} · {expense.essential ? "need" : "want"}
+                    {expense.category}
                   </p>
                 </div>
                 <input
@@ -218,27 +218,37 @@ export function BudgetPage() {
               </div>
             </div>
           </div>
-          <div className="number-panel space-y-5 p-5 sm:p-6">
-            <h2 className="font-display text-xl font-bold">Monthly settings</h2>
-            <Field
-              label="Monthly income"
-              value={state.income}
-              onChange={(value) => update("income", value)}
-              suffix="$"
-            />
-            <Slider
-              label="Save rate"
-              value={state.savingsRate}
-              onChange={(value) => update("savingsRate", value)}
-              max={60}
-            />
-            <Slider
-              label="Invest rate"
-              value={state.investRate}
-              onChange={(value) => update("investRate", value)}
-              max={60}
-            />
-          </div>
+          <details className="number-panel p-5 sm:p-6">
+            <summary className="cursor-pointer list-none font-display text-lg font-semibold">
+              Monthly settings
+            </summary>
+            <div className="mt-5 space-y-5">
+              <Field
+                label="Income"
+                value={state.income}
+                onChange={(value) => update("income", value)}
+                suffix="$"
+              />
+              <Slider
+                label="Save"
+                value={state.savingsRate}
+                onChange={(value) => update("savingsRate", value)}
+                max={60}
+              />
+              <Slider
+                label="Invest"
+                value={state.investRate}
+                onChange={(value) => update("investRate", value)}
+                max={60}
+              />
+            </div>
+          </details>
+          <Link
+            to="/habits"
+            className="inline-flex text-sm font-semibold text-muted-foreground hover:text-primary"
+          >
+            Review spending habits
+          </Link>
         </div>
       </section>
     </AppShell>
@@ -258,11 +268,7 @@ export function CashflowPage() {
 
   return (
     <AppShell>
-      <PageHeader
-        eyebrow="Cash flow"
-        title="See what moves each month."
-        description="A simple path from money coming in to money left for the life you actually want."
-      />
+      <PageHeader title="Cash flow" />
       <section className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="ledger-sheet p-5 sm:p-7">
           <h2 className="font-display text-xl font-bold">Monthly flow</h2>
@@ -283,16 +289,11 @@ export function CashflowPage() {
             ))}
           </div>
         </div>
-        <aside className="cashflow-balance flex min-h-72 flex-col justify-between p-6 sm:p-8">
-          <p className="eyebrow">Available after your plan</p>
-          <div>
-            <p className="font-display text-5xl font-bold sm:text-6xl">{money(summary.freeFlow)}</p>
-            <p className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
-              {summary.freeFlow >= 0
-                ? "This is flexible money after expenses, saving, and investing."
-                : "Your plan currently asks for more than this month brings in."}
-            </p>
-          </div>
+        <aside className="cashflow-balance p-6 sm:p-8">
+          <p className="text-sm text-muted-foreground">Available</p>
+          <p className="mt-3 font-display text-4xl font-semibold sm:text-5xl">
+            {money(summary.freeFlow)}
+          </p>
         </aside>
       </section>
     </AppShell>
@@ -304,9 +305,7 @@ export function GoalsPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Goals"
-        title="Make progress visible."
-        description="Keep each goal specific, funded, and close enough to act on today."
+        title="Goals"
         action={
           <button
             onClick={() =>
@@ -336,7 +335,7 @@ export function GoalsPage() {
           return (
             <article
               key={goal.id}
-              className="goal-line grid gap-5 py-6 sm:grid-cols-[auto_1fr_1fr_auto] sm:items-center"
+              className="goal-line grid grid-cols-[auto_1fr_auto] gap-4 py-5 sm:grid-cols-[auto_1fr_1fr_auto] sm:items-center"
             >
               <span className="text-3xl" aria-hidden="true">
                 {goal.emoji}
@@ -347,7 +346,7 @@ export function GoalsPage() {
                   {money(goal.saved)} of {money(goal.target)}
                 </p>
               </div>
-              <div>
+              <div className="col-span-3 row-start-2 sm:col-span-1 sm:row-auto">
                 <div className="h-2 overflow-hidden rounded-full bg-secondary">
                   <div className="primary-fill h-full" style={{ width: `${percent}%` }} />
                 </div>
@@ -355,7 +354,7 @@ export function GoalsPage() {
                   {Math.round(percent)}% complete
                 </p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="col-start-3 row-start-1 flex items-center gap-2 sm:col-auto sm:row-auto">
                 <button
                   onClick={() =>
                     setState((current) => ({
@@ -395,16 +394,14 @@ export function HabitsPage() {
   const summary = useMemo(() => derive(state), [state]);
   return (
     <AppShell>
-      <PageHeader
-        eyebrow="Habits"
-        title="Spend with a little more intention."
-        description="A light-touch check on discretionary spending and the days you choose not to buy."
-      />
+      <PageHeader title="Habits" />
       <section className="grid gap-8 lg:grid-cols-2">
         <div className="meter-panel p-6 sm:p-8">
-          <p className="eyebrow">Wants share</p>
-          <p className="mt-5 font-display text-6xl font-bold">{Math.round(summary.wantsShare)}%</p>
-          <div className="mt-8 h-2 overflow-hidden rounded-full bg-secondary">
+          <p className="text-sm text-muted-foreground">Wants</p>
+          <p className="mt-3 font-display text-4xl font-semibold">
+            {Math.round(summary.wantsShare)}%
+          </p>
+          <div className="mt-6 h-2 overflow-hidden rounded-full bg-secondary">
             <div
               className="primary-fill h-full"
               style={{ width: `${Math.min(100, summary.wantsShare)}%` }}
@@ -415,23 +412,17 @@ export function HabitsPage() {
             <span>25% guide</span>
             <span>50%+</span>
           </div>
-          <p className="mt-8 text-sm leading-6 text-muted-foreground">
-            {summary.wantsShare < 25
-              ? "Your flexible spending is within the guide. Keep room for joy and your future."
-              : "Choose one or two wants to pause before the month gets crowded."}
+          <p className="mt-6 text-sm leading-6 text-muted-foreground">
+            {summary.wantsShare < 25 ? "Within the 25% guide." : "Above the 25% guide."}
           </p>
         </div>
         <div className="streak-panel p-6 sm:p-8">
-          <p className="eyebrow">No-buy streak</p>
-          <div className="mt-5 flex items-end gap-3">
-            <p className="font-display text-6xl font-bold text-primary">{state.noBuyStreak}</p>
+          <p className="text-sm text-muted-foreground">No-buy streak</p>
+          <div className="mt-3 flex items-end gap-3">
+            <p className="font-display text-4xl font-semibold text-primary">{state.noBuyStreak}</p>
             <p className="pb-2 text-sm text-muted-foreground">days</p>
           </div>
-          <p className="mt-5 text-sm leading-6 text-muted-foreground">
-            About {money(Math.round((summary.wants / 30) * state.noBuyStreak))} in typical wants
-            left untouched during this streak.
-          </p>
-          <div className="mt-8 flex gap-3">
+          <div className="mt-6 flex gap-3">
             <button
               onClick={() => update("noBuyStreak", state.noBuyStreak + 1)}
               className="primary-button flex-1 px-4 py-3 text-sm font-semibold"
@@ -458,9 +449,8 @@ export function PlanPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Long-term plan"
-        title="Let time do more of the work."
-        description={`At your current pace, the plan reaches ${money(summary.futureValue)} in ${state.years} years.`}
+        title="Plan"
+        description={`${money(summary.futureValue)} projected in ${state.years} years`}
       />
       <section className="grid gap-6 lg:grid-cols-[1fr_320px]">
         <div className="chart-pond p-5 sm:p-7">
@@ -505,9 +495,6 @@ export function PlanPage() {
             max={45}
             suffix=" years"
           />
-          <p className="border-t border-border pt-4 text-xs leading-5 text-muted-foreground">
-            This estimate is a planning guide, not a promise of future returns.
-          </p>
         </aside>
       </section>
     </AppShell>
